@@ -44,7 +44,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: production
+          env: Netlify (Production)
 
       - name: Deploy to Netlify (Production)
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -71,7 +71,7 @@ jobs:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
-          env: production
+          env: Netlify (Production)
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: https://system.gotpop.io
 

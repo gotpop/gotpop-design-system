@@ -1,0 +1,34 @@
+.storybook-background {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  min-width: 10rem;
+  grid-column: 1 / -1;
+  padding-block: var(--spacing-base);
+  min-height: 5rem;
+
+  @media screen and (width >= 768px) {
+    grid-column: 1 / span 2;
+  }
+}
+
+.storybook-background--secondary-700 {
+  background-color: var(--secondary-700, #374151);
+  color: var(--text-light, #ffffff);
+}
+
+.storybook-background--primary {
+  background-color: var(--primary, #3b82f6);
+  color: var(--text-light, #ffffff);
+}
+
+.storybook-background--dark {
+  background-color: var(--background-dark, #1f2937);
+  color: var(--text-light, #ffffff);
+}
+
+.storybook-background--light {
+  background-color: var(--background-light, #f9fafb);
+  color: var(--text-dark, #111827);
+  border: 1px solid var(--border-light, #e5e7eb);
+}

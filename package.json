@@ -1,0 +1,44 @@
+{
+  "name": "gotpop-design-system",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Design system monorepo for gotpop projects",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "dev:packages": "turbo run dev --filter=@gotpop/system --filter=@gotpop/storyblok",
+    "kill-ports": "sh ./scripts/kill-ports.sh",
+    "format:check": "turbo run format:check",
+    "format:fix": "turbo run format:fix",
+    "lint": "turbo run lint",
+    "publish:scripts": "yarn workspace @gotpop/scripts run publish:github",
+    "publish:storyblok": "yarn workspace @gotpop/storyblok run publish:github",
+    "publish:system": "yarn workspace @gotpop/system run publish:github",
+    "test": "turbo run test",
+    "type-check": "turbo run type-check"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "@types/node": "^20.0.0",
+    "next": "16.0.0",
+    "prettier": "^3.6.2",
+    "turbo": "^1.13.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": false,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "printWidth": 80,
+    "arrowParens": "always"
+  }
+}

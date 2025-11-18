@@ -1,0 +1,41 @@
+{
+  "name": "@gotpop/scripts",
+  "version": "0.1.1",
+  "description": "Shared scripts for Storyblok projects",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "bin": {
+    "generate-icon-list": "./src/generate-icon-list.js",
+    "generate-storyblok-types": "./src/generate-storyblok-types.js",
+    "kill-ports": "./src/kill-ports.sh",
+    "sync-baseline-datasource": "./src/sync-baseline-datasource.js",
+    "sync-icon-datasource": "./src/sync-icon-datasource.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\"",
+    "publish:github": "npm version patch && yarn build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gotpop/gotpop-system.git",
+    "directory": "packages/scripts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "storyblok",
+    "scripts",
+    "utilities"
+  ],
+  "author": "gotpop",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

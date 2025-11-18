@@ -1,0 +1,66 @@
+[build]
+base = "."
+publish = "apps/storybook/storybook-static"
+command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
+
+[build.environment]
+NODE_VERSION = "22"
+YARN_VERSION = "1.22.22"
+# Force framework detection to static site
+NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+# Override framework detection completely
+[build.processing]
+skip_processing = false
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[context.production]
+command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
+
+[context.deploy-preview]
+command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
+
+[context.branch-deploy]
+command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
+
+# Custom domain configuration
+[[redirects]]
+from = "https://gotpop-system.netlify.app/*"
+to = "https://system.gotpop.io/:splat"
+status = 301
+force = true
+
+# Security headers - Storybook compatible
+[[headers]]
+for = "/*"
+[headers.values]
+X-Frame-Options = "SAMEORIGIN"
+X-XSS-Protection = "1; mode=block"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src 'self';"
+
+# Cache static assets
+[[headers]]
+for = "/static/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.js"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.css"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.woff2"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"

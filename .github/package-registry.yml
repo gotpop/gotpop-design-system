@@ -1,0 +1,6 @@
+# This file helps GitHub recognize JSR packages
+# See: https://jsr.io/@gotpop/system
+
+name: "@gotpop/system"
+registry: "jsr"
+url: "https://jsr.io/@gotpop/system"

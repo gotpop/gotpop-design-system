@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gotpop/system": ["../../packages/system/src"],
+      "@gotpop/system/*": ["../../packages/system/src/*"]
+    },
+    "types": ["node"]
+  },
+  "include": [
+    "src/**/*",
+    ".storybook/**/*",
+    "../../packages/system/src/**/*.stories.*"
+  ],
+  "exclude": ["node_modules", "storybook-static", "**/*.test.*", "**/*.spec.*"]
+}

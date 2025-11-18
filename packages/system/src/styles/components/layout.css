@@ -1,0 +1,56 @@
+main {
+  display: grid;
+  grid-area: main / breakout;
+  grid-template-columns: subgrid;
+  grid-template-rows: min-content;
+  row-gap: var(--spacing-lg);
+  grid-column: breakout;
+}
+
+main-content {
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-column: content;
+  grid-template-columns: subgrid;
+}
+
+box-crosshatch {
+  background-image: var(--crosshatch);
+  background-repeat: repeat, repeat;
+  background-size: var(--box-hero-grid-size) var(--box-hero-grid-size);
+  display: grid;
+  grid-column: breakout;
+  grid-template-columns: subgrid;
+  padding-block: var(--spacing-base);
+  row-gap: var(--spacing-md);
+  view-transition-name: box-crosshatch;
+  /* Fix for subpixel rendering on Safari */
+  position: relative;
+  right: 0.2px;
+}
+
+box-grid {
+  --position: 0 -5px, -5px 0px;
+
+  background-color: var(--light-100);
+  background-image: var(--grid-css);
+  column-gap: var(--column-gap, 0);
+  display: flex;
+  flex-direction: var(--direction, column);
+  grid-column: var(--grid-column, content);
+  padding-block: var(--spacing-lg);
+  padding-inline: var(--spacing-lg);
+  background-size: 16px 16px;
+  background-position: var(--position);
+
+  @media (-webkit-max-device-pixel-ratio: 1.5), (max-resolution: 1.5dppx) {
+    --position: 0 -5px, -6px 0px;
+  }
+}
+
+/* High DPI support IE 5k studio displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  :where(html) {
+    --crosshatch-line-width: 0.5px;
+  }
+}

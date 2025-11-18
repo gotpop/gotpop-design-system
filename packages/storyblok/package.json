@@ -1,0 +1,65 @@
+{
+  "name": "@gotpop/storyblok",
+  "version": "0.1.29",
+  "description": "Storyblok integration utilities and components for gotpop projects",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "default": "./dist/config/index.js"
+    },
+    "./data": {
+      "types": "./dist/data/index.d.ts",
+      "default": "./dist/data/index.js"
+    },
+    "./routing": {
+      "types": "./dist/routing/index.d.ts",
+      "default": "./dist/routing/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "default": "./dist/utils/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "package.json",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gotpop/gotpop-system.git",
+    "directory": "packages/storyblok"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "publish:github": "npm version patch && yarn build && npm publish"
+  },
+  "dependencies": {
+    "@storyblok/react": "^5.0.0"
+  },
+  "devDependencies": {
+    "@gotpop/system": "*",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "@gotpop/system": "*",
+    "next": ">=15.0.0",
+    "react": ">=19.0.0"
+  }
+}

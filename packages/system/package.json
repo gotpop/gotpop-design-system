@@ -1,0 +1,88 @@
+{
+  "name": "@gotpop/system",
+  "version": "0.1.174",
+  "description": "React design system components for gotpop",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles": {
+      "default": "./src/styles/index.css"
+    },
+    "./fonts": {
+      "types": "./dist/fonts/index.d.ts",
+      "default": "./dist/fonts/index.js"
+    },
+    "./fonts/inter": {
+      "default": "./src/fonts/inter/Inter.woff2"
+    },
+    "./fonts/monaspace": {
+      "default": "./src/fonts/monaspace/Monaspace.woff2"
+    },
+    "./components/*": {
+      "types": "./dist/components/*/index.d.ts",
+      "default": "./dist/components/*/index.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*/index.d.ts",
+      "default": "./dist/utils/*/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
+    },
+    "./lib/*": {
+      "types": "./dist/lib/*.d.ts",
+      "default": "./dist/lib/*.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "package.json",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gotpop/gotpop-system.git",
+    "directory": "packages/system"
+  },
+  "scripts": {
+    "prebuild": "yarn generate:types",
+    "build": "tsc && rsync -a --include='*/' --include='*.css' --include='*.woff2' --exclude='*' src/ dist/",
+    "dev": "tsc --watch",
+    "lint": "npx biome lint src/",
+    "format:check": "npx biome check src/",
+    "format:fix": "npx biome check --write src/",
+    "type-check": "tsc --noEmit",
+    "generate:types": "node --env-file-if-exists=.env ../../node_modules/.bin/generate-storyblok-types -o src/types/storyblok-components.ts",
+    "publish:github": "npm version patch && yarn build && npm publish"
+  },
+  "dependencies": {
+    "@next/font": "^14.2.15",
+    "@storyblok/react": "^5.4.18",
+    "react": "19.2.0",
+    "react-icons": "^5.4.0",
+    "server-only": "^0.0.1",
+    "storyblok-rich-text-react-renderer": "^3.0.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "@gotpop/scripts": "^0.1.1",
+    "@types/node": "^20.0.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "next": "16.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0"
+  }
+}

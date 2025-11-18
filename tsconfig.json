@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gotpop/system": ["./packages/system/src"],
+      "@gotpop/system/*": ["./packages/system/src/*"]
+    }
+  },
+  "include": ["packages/*/src/**/*", "apps/*/src/**/*"],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/node_modules",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.stories.*"
+  ]
+}

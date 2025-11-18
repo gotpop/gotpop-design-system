@@ -1,0 +1,29 @@
+{
+  "name": "storybook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Storybook for gotpop design system components",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "preview": "serve storybook-static",
+    "lint": "echo 'lint: no linting configured for storybook'",
+    "format:check": "echo 'format:check: no formatting configured for storybook'",
+    "format:fix": "echo 'format:fix: no formatting configured for storybook'",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf storybook-static"
+  },
+  "dependencies": {
+    "@gotpop/system": "*",
+    "next": "16.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "storyblok-rich-text-react-renderer": "^3.0.0"
+  },
+  "devDependencies": {
+    "@storybook/nextjs": "^9.1.16",
+    "@storybook/react": "^9.1.16",
+    "storybook": "^9.1.16",
+    "typescript": "^5"
+  }
+}

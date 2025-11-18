@@ -1,0 +1,12 @@
+# Repository Topics Configuration
+# These topics help with GitHub discovery
+
+topics:
+  - design-system
+  - react
+  - typescript
+  - jsr
+  - storyblok
+  - nextjs
+  - monorepo
+  - components

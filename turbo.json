@@ -1,0 +1,27 @@
+{
+  "pipeline": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputs": []
+    },
+    "format:check": {
+      "outputs": []
+    },
+    "format:fix": {
+      "cache": false
+    },
+    "type-check": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": ["coverage/**"]
+    },
+    "build": {
+      "dependsOn": [],
+      "outputs": [".next/**", "storybook-static/**"]
+    }
+  }
+}

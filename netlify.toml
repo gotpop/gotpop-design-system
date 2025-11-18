@@ -1,13 +1,6 @@
 [build]
-base = "."
+# Build is handled by GitHub Actions
 publish = "apps/storybook/storybook-static"
-command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
-
-[build.environment]
-NODE_VERSION = "22"
-YARN_VERSION = "1.22.22"
-# Force framework detection to static site
-NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 # Override framework detection completely
 [build.processing]
@@ -17,15 +10,6 @@ skip_processing = false
 from = "/*"
 to = "/index.html"
 status = 200
-
-[context.production]
-command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
-
-[context.deploy-preview]
-command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
-
-[context.branch-deploy]
-command = "yarn install --frozen-lockfile && yarn workspace @gotpop/system build && yarn workspace storybook build"
 
 # Custom domain configuration
 [[redirects]]

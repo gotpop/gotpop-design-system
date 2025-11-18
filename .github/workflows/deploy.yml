@@ -50,7 +50,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=apps/storybook/storybook-static --cwd=apps/storybook --prod
+          args: deploy --dir=apps/storybook/storybook-static --prod --skip-functions-cache
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -59,7 +59,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=apps/storybook/storybook-static --cwd=apps/storybook
+          args: deploy --dir=apps/storybook/storybook-static --skip-functions-cache
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

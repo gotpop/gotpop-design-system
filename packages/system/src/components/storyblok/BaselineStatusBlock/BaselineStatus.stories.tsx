@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { GridMaster } from "../../ui/GridMaster/GridMaster"
+
 import { BaselineStatus } from "./BaselineStatus"
 import {
   limitedAvailabilityFeature,
@@ -36,7 +37,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  name: "Widely Available",
+  name: "Widely Available!",
   args: {
     data: widelyAvailableFeature,
   },

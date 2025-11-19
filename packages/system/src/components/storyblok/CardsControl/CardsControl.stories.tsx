@@ -11,7 +11,7 @@ const meta: Meta<typeof CardsControl> = {
   },
   tags: ["autodocs"],
   decorators: [
-    (Story: any) => (
+    (Story: React.ComponentType) => (
       <GridMaster>
         <main>
           <Story />

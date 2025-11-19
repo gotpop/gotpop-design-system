@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { GridMaster } from "../../ui/GridMaster/GridMaster"
 import { Card } from "./Card"
-import {
-  baseMockPost,
-  mockConfig
-} from "./Card.mocks"
+import { baseMockPost, mockConfig } from "./Card.mocks"
 
 const meta: Meta<typeof Card> = {
   title: "Storyblok/Card",
@@ -23,9 +20,12 @@ const meta: Meta<typeof Card> = {
     (Story) => (
       <GridMaster>
         <main
-         style={{
-          "--grid-column": "1 / -1",
-        } as React.CSSProperties}>
+          style={
+            {
+              "--grid-column": "1 / -1",
+            } as React.CSSProperties
+          }
+        >
           <Story />
         </main>
       </GridMaster>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useId } from "react"
+import { CustomElement } from "../../ui/CustomElement"
 import "./CardsControl.css"
 
 interface CardsControlProps {
@@ -21,7 +22,7 @@ export function CardsControl({
   const selectId = useId()
 
   return (
-    <div className={className}>
+    <CustomElement tag="select-option" className={className}>
       <label htmlFor={selectId} className="select-label">
         {label}:
       </label>
@@ -37,6 +38,6 @@ export function CardsControl({
           </option>
         ))}
       </select>
-    </div>
+    </CustomElement>
   )
 }

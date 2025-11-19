@@ -14,6 +14,7 @@ type ValidTag =
   | "icon-hamburger"
   | "box-crosshatch"
   | "page-layout"
+  | "select-option"
 
 interface CustomElementProps {
   children?: ReactNode

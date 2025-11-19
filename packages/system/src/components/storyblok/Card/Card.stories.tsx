@@ -22,7 +22,10 @@ const meta: Meta<typeof Card> = {
   decorators: [
     (Story) => (
       <GridMaster>
-        <main>
+        <main
+         style={{
+          "--grid-column": "1 / -1",
+        } as React.CSSProperties}>
           <Story />
         </main>
       </GridMaster>

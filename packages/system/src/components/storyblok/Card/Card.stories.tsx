@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { GridMaster } from "../../ui/GridMaster/GridMaster"
 import { Card } from "./Card"
 import {
   baseMockPost,
@@ -18,6 +19,15 @@ const meta: Meta<typeof Card> = {
     },
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <GridMaster>
+        <main>
+          <Story />
+        </main>
+      </GridMaster>
+    ),
+  ],
   argTypes: {
     blok: {
       description: "Post data including content and metadata",
@@ -47,7 +57,7 @@ export const Tablet: Story = {
     blok: baseMockPost,
   },
   globals: {
-    viewport: { value: "tablet", isRotated: false },
+    viewport: { value: "tablet" },
   },
 }
 
@@ -56,6 +66,6 @@ export const Mobile: Story = {
     blok: baseMockPost,
   },
   globals: {
-    viewport: { value: "mobile2", isRotated: false },
+    viewport: { value: "mobile2" },
   },
 }

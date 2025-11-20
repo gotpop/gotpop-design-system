@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { CustomElement } from "../CustomElement"
+import { GridMaster } from "../GridMaster/GridMaster"
 import { AVAILABLE_ICONS, Icon } from "./Icon"
 
 const meta: Meta<typeof Icon> = {
@@ -37,6 +39,17 @@ const meta: Meta<typeof Icon> = {
     name: "FaHome",
     size: 24,
   },
+  decorators: [
+    (Story) => (
+      <GridMaster>
+        <main>
+          <CustomElement tag="box-grid">
+            <Story />
+          </CustomElement>
+        </main>
+      </GridMaster>
+    ),
+  ],
 }
 
 export default meta

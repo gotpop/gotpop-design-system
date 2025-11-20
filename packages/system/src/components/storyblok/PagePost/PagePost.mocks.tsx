@@ -40,7 +40,7 @@ export const mockBlogPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "Welcome to this comprehensive guide on modern web development practices. In this post, we'll explore the latest trends and techniques that are shaping the industry.",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           },
         ],
       },
@@ -50,7 +50,7 @@ export const mockBlogPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "Introduction to Modern Development",
+            text: "Ut Enim Ad Minim Veniam",
           },
         ],
       },
@@ -59,16 +59,16 @@ export const mockBlogPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "The landscape of web development has evolved significantly over the past few years. ",
+            text: "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
           },
           {
             type: "text",
             marks: [{ type: "bold" }],
-            text: "Performance, accessibility, and user experience",
+            text: "Duis aute irure dolor",
           },
           {
             type: "text",
-            text: " have become the cornerstone principles that guide our development decisions.",
+            text: " in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
           },
         ],
       },
@@ -77,7 +77,7 @@ export const mockBlogPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "In this article, we'll dive deep into these concepts and provide practical examples that you can implement in your projects today.",
+            text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           },
         ],
       },
@@ -96,7 +96,7 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "This technical deep-dive covers advanced implementation patterns and best practices for scalable applications.",
+            text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
           },
         ],
       },
@@ -106,7 +106,7 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
         content: [
           {
             type: "text",
-            text: "Key Implementation Details",
+            text: "Totam Rem Aperiam",
           },
         ],
       },
@@ -121,7 +121,7 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
                 content: [
                   {
                     type: "text",
-                    text: "Component architecture and reusability patterns",
+                    text: "Neque porro quisquam est",
                   },
                 ],
               },
@@ -135,7 +135,7 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
                 content: [
                   {
                     type: "text",
-                    text: "Performance optimization strategies",
+                    text: "Qui dolorem ipsum quia",
                   },
                 ],
               },
@@ -149,7 +149,7 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
                 content: [
                   {
                     type: "text",
-                    text: "Testing methodologies and automation",
+                    text: "Dolor sit amet consectetur",
                   },
                 ],
               },
@@ -165,8 +165,8 @@ export const mockTechnicalPostContent: RichTextBlockStoryblok = {
 export const mockShortPostContent = (
   <div>
     <Typography tag="p" variant="text-base" shade="charcoal">
-      This is a brief blog post with minimal content to demonstrate the post
-      layout structure.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor.
     </Typography>
   </div>
 )
@@ -174,7 +174,7 @@ export const mockShortPostContent = (
 export const mockEmptyPostContent = (
   <div style={{ padding: "2rem", textAlign: "center" }}>
     <Typography tag="p" variant="text-base" shade="light">
-      No content available for this post.
+      Nullam quis risus eget urna mollis ornare vel eu leo.
     </Typography>
   </div>
 )
@@ -183,48 +183,48 @@ export const mockEmptyPostContent = (
 export const mockBlogPostBlok: PagePostStoryblok = {
   _uid: "post-1",
   component: "page_post",
-  heading: "Modern Web Development Best Practices",
+  heading: "Lorem Ipsum Dolor Sit Amet",
   published_date: "2024-11-15T10:30:00.000Z",
   description:
-    "A comprehensive guide to modern web development practices and techniques.",
-  tags: ["web-development", "best-practices", "frontend"],
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+  tags: ["lorem", "ipsum", "dolor"],
   view_transition_name: "post-transition",
 }
 
 export const mockTechnicalPostBlok: PagePostStoryblok = {
   _uid: "post-2",
   component: "page_post",
-  heading: "Advanced React Patterns and Performance",
+  heading: "Sed Ut Perspiciatis Unde Omnis",
   published_date: "2024-11-10T14:15:00.000Z",
   description:
-    "Deep dive into advanced React patterns for building performant applications.",
-  tags: ["react", "performance", "patterns", "javascript"],
+    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+  tags: ["perspiciatis", "veniam", "laboris"],
   view_transition_name: "tech-post-transition",
 }
 
 export const mockSimplePostBlok: PagePostStoryblok = {
   _uid: "post-3",
   component: "page_post",
-  heading: "Quick Tips for Better Code",
+  heading: "Consectetur Adipiscing Elit",
   published_date: "2024-11-12T09:00:00.000Z",
-  description: "Simple tips to improve your coding practices.",
-  tags: ["tips", "coding"],
+  description: "Duis aute irure dolor in reprehenderit.",
+  tags: ["consectetur", "adipiscing"],
 }
 
 export const mockPostWithoutDateBlok: PagePostStoryblok = {
   _uid: "post-4",
   component: "page_post",
-  heading: "Post Without Date",
-  description: "This post doesn't have a published date.",
-  tags: ["example"],
+  heading: "Excepteur Sint Occaecat",
+  description: "Cupidatat non proident sunt in culpa.",
+  tags: ["excepteur"],
 }
 
 export const mockPostWithoutHeadingBlok: PagePostStoryblok = {
   _uid: "post-5",
   component: "page_post",
   published_date: "2024-11-08T16:45:00.000Z",
-  description: "This post doesn't have a heading.",
-  tags: ["example"],
+  description: "Qui officia deserunt mollitia animi.",
+  tags: ["officia"],
 }
 
 // Content block variations

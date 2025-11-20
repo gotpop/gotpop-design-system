@@ -7,8 +7,8 @@ import type {
 export const mockConfig: ConfigStoryblok = {
   _uid: "config-1",
   component: "Config",
-  app_name: "GotPop Blog",
-  description: "A modern blog built with Next.js and Storyblok",
+  app_name: "Lorem Ipsum",
+  description: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
   root_name_space: "blog",
   primary_content_name_space: "blog",
 }
@@ -17,7 +17,7 @@ export const mockConfig: ConfigStoryblok = {
 export const mockTextOnlyNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-text-1",
   component: "nav_item_default",
-  text: "About Us",
+  text: "Lorem Ipsum",
   type: "text",
   link: {
     cached_url: "/about",
@@ -41,7 +41,7 @@ export const mockIconOnlyNavItem: NavItemDefaultStoryblok = {
 export const mockIconTextNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-both-1",
   component: "nav_item_default",
-  text: "Dashboard",
+  text: "Dolor Sit",
   icon: "dashboard",
   type: "icon-text",
   link: {
@@ -54,7 +54,7 @@ export const mockIconTextNavItem: NavItemDefaultStoryblok = {
 export const mockExternalNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-external-1",
   component: "nav_item_default",
-  text: "GitHub",
+  text: "Consectetur",
   icon: "github",
   type: "external",
   link: {
@@ -68,7 +68,7 @@ export const mockExternalNavItem: NavItemDefaultStoryblok = {
 export const mockDisabledNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-disabled-1",
   component: "nav_item_default",
-  text: "Coming Soon",
+  text: "Adipiscing",
   type: "disabled",
   // No link or invalid link to demonstrate disabled state
 }
@@ -77,7 +77,7 @@ export const mockDisabledNavItem: NavItemDefaultStoryblok = {
 export const mockPrimaryNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-primary-1",
   component: "nav_item_default",
-  text: "Home",
+  text: "Elit",
   type: "primary",
   link: {
     cached_url: "/",
@@ -88,7 +88,7 @@ export const mockPrimaryNavItem: NavItemDefaultStoryblok = {
 export const mockSecondaryNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-secondary-1",
   component: "nav_item_default",
-  text: "Blog",
+  text: "Tempor",
   type: "secondary",
   link: {
     cached_url: "/blog",
@@ -99,7 +99,7 @@ export const mockSecondaryNavItem: NavItemDefaultStoryblok = {
 export const mockSettingsNavItem: NavItemDefaultStoryblok = {
   _uid: "nav-item-settings-1",
   component: "nav_item_default",
-  text: "Settings",
+  text: "Incididunt",
   icon: "settings",
   type: "utility",
   link: {

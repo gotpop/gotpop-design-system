@@ -25,31 +25,29 @@ export function PageNotFound({
   const { title } = blok
 
   const list = availableStories?.map((slug) => (
-    <li key={slug}>
-      <Link href={`/${slug}`}>{slug}</Link>
-    </li>
+    <Link href={`/${slug}`} key={slug}>
+      <span>{slug}</span>
+    </Link>
   ))
 
   return (
     <PageLayout header={header} footer={footer} aria-labelledby={id}>
       <CustomElement tag="box-grid">
         <div className="page-not-found">
-          <div className="page-not-found__content">
-            {title && (
-              <Typography tag="h1" variant="text-6xl" shade="dark" id={id}>
-                {title}
+          {title && (
+            <Typography tag="h1" variant="text-4xl" shade="dark" id={id}>
+              {title}
+            </Typography>
+          )}
+          {blocks}
+          {availableStories && availableStories.length > 0 && (
+            <>
+              <Typography tag="h2" variant="text-lg" shade="dark" id={id}>
+                Available Pages:
               </Typography>
-            )}
-            {blocks}
-            {availableStories && availableStories.length > 0 && (
-              <>
-                <Typography tag="h2" variant="text-lg" shade="dark" id={id}>
-                  Available Pages:
-                </Typography>
-                <ul>{list}</ul>
-              </>
-            )}
-          </div>
+              <div className="links-available">{list}</div>
+            </>
+          )}
         </div>
       </CustomElement>
     </PageLayout>

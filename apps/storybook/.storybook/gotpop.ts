@@ -19,7 +19,7 @@ export default create({
     'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
   fontCode: '"Monospace", "SF Mono", "Monaco", "Consolas", monospace',
   brandTitle: "GotPop System Storybook",
-  brandUrl: "https://github.com/gotpop/gotpop-system",
+  brandUrl: "https://github.com/gotpop/system",
   brandImage:
     "https://a.storyblok.com/f/287776322113402/117x50/09c61ba628/logo-small.png",
   brandTarget: "_self",

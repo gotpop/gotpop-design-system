@@ -55,41 +55,7 @@ const meta: Meta<typeof Icon> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
-
-export const Large: Story = {
-  args: {
-    name: "FaStar",
-    size: 48,
-    color: "#f59e0b",
-  },
-}
-
-export const Small: Story = {
-  args: {
-    name: "FaUser",
-    size: 16,
-    color: "#6b7280",
-  },
-}
-
-export const Navigation: Story = {
-  args: {
-    name: "FaBars",
-    size: 24,
-    color: "#374151",
-  },
-}
-
-export const Social: Story = {
-  args: {
-    name: "FaSquareGithub",
-    size: 32,
-    color: "#1f2937",
-  },
-}
-
-export const AllIcons: Story = {
+export const Default: Story = {
   render: () => (
     <div
       style={{

@@ -1,7 +1,7 @@
 "use client"
 
-import type { ConfigStoryblok } from "@/index"
 import { startTransition, ViewTransition } from "react"
+import type { ConfigStoryblok } from "../../../index"
 import { CustomElement } from "../../ui/CustomElement"
 import type { PostProps } from "../Card/Card"
 import { Card } from "../Card/Card"

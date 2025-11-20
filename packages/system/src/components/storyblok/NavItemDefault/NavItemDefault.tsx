@@ -17,7 +17,6 @@ interface NavItemDefaultProps {
 
 export function NavItemDefault({
   blok,
-  config,
   style,
 }: NavItemDefaultProps): React.JSX.Element {
   const linkProps = getStoryblokLinkProps(blok.link)

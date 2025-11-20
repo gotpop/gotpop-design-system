@@ -5,7 +5,10 @@ import { Typography } from "../Typography/Typography"
 interface RichTextProps {
   content: RichtextStoryblok
   className?: string
-  blokResolvers?: Record<string, (props: any) => React.JSX.Element>
+  blokResolvers?: Record<
+    string,
+    (props: Record<string, unknown>) => React.JSX.Element
+  >
 }
 
 export function RichText({

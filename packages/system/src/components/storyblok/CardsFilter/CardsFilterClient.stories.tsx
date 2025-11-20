@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { GridMaster } from "../../ui/GridMaster/GridMaster"
 import { CardsFilterClient } from "./CardsFilterClient"
-import {
-  additionalMockPosts,
-  additionalMockTags,
-  mockConfig,
-  mockPosts,
-  mockTags,
-} from "./CardsFilterClient.mocks"
+import { mockConfig, mockPosts, mockTags } from "./CardsFilterClient.mocks"
 
 const meta: Meta<typeof CardsFilterClient> = {
   title: "Storyblok/CardsFilterClient",
@@ -45,14 +39,6 @@ export const Default: Story = {
   args: {
     posts: mockPosts,
     availableTags: mockTags,
-    config: mockConfig,
-  },
-}
-
-export const WithManyPosts: Story = {
-  args: {
-    posts: [...mockPosts, ...additionalMockPosts],
-    availableTags: [...mockTags, ...additionalMockTags],
     config: mockConfig,
   },
 }

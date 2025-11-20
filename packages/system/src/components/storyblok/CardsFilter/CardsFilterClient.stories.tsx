@@ -50,7 +50,7 @@ export const Tablet: Story = {
     config: mockConfig,
   },
   globals: {
-    viewport: { value: "tablet", isRotated: false },
+    viewport: { value: "tablet" },
   },
 }
 
@@ -61,6 +61,6 @@ export const Mobile: Story = {
     config: mockConfig,
   },
   globals: {
-    viewport: { value: "mobile2", isRotated: false },
+    viewport: { value: "mobile2" },
   },
 }

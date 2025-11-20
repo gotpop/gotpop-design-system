@@ -27,9 +27,6 @@ export function NavItemDefault({
   const hasTextOnly = hasText && !hasIcon
   const hasIconOnly = hasIcon && !hasText
 
-  // log config for debugging
-  console.log("NavItemDefault config:", config)
-
   if (!blok.link || href === "#") {
     return <span className="nav-item">{blok.text}</span>
   }

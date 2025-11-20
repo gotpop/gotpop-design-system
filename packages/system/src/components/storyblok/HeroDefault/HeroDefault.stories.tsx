@@ -1,100 +1,52 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { GridMaster } from "../../ui/GridMaster"
 import { HeroDefault } from "./HeroDefault"
-import {
-  mockBlogHeroBlok,
-  mockEmptyHeadingHeroBlok,
-  mockFullHeroBlok,
-  mockLongHeadingHeroBlok,
-  mockNoSubheadingHeroBlok,
-  mockProductHeroBlok,
-  mockShortHeroBlok,
-  mockSimpleHeroBlok,
-} from "./HeroDefault.mocks"
+import { mockFullHeroBlok } from "./HeroDefault.mocks"
 
 const meta: Meta<typeof HeroDefault> = {
   title: "Storyblok/HeroDefault",
   component: HeroDefault,
   parameters: {
-    layout: "centered",
-    viewport: {
-      defaultViewport: "desktop",
-    },
+    layout: "fullscreen",
   },
   argTypes: {
     blok: { control: "object" },
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <GridMaster>
+        <main>
+          <Story />
+        </main>
+      </GridMaster>
+    ),
+  ],
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Simple: Story = {
-  args: {
-    blok: mockSimpleHeroBlok,
-  },
-}
-
-export const Full: Story = {
+export const Default: Story = {
   args: {
     blok: mockFullHeroBlok,
   },
 }
 
-export const Product: Story = {
-  args: {
-    blok: mockProductHeroBlok,
-  },
-}
-
-export const Blog: Story = {
-  args: {
-    blok: mockBlogHeroBlok,
-  },
-}
-
-export const Short: Story = {
-  args: {
-    blok: mockShortHeroBlok,
-  },
-}
-
-export const LongHeading: Story = {
-  args: {
-    blok: mockLongHeadingHeroBlok,
-  },
-}
-
-export const EmptyHeading: Story = {
-  args: {
-    blok: mockEmptyHeadingHeroBlok,
-  },
-}
-
-export const NoSubheading: Story = {
-  args: {
-    blok: mockNoSubheadingHeroBlok,
-  },
-}
-
-export const TabletView: Story = {
+export const Tablet: Story = {
   args: {
     blok: mockFullHeroBlok,
   },
-  parameters: {
-    viewport: {
-      defaultViewport: "tablet",
-    },
+  globals: {
+    viewport: { value: "tablet", isRotated: false },
   },
 }
 
-export const MobileView: Story = {
+export const Mobile: Story = {
   args: {
-    blok: mockProductHeroBlok,
+    blok: mockFullHeroBlok,
   },
-  parameters: {
-    viewport: {
-      defaultViewport: "mobile1",
-    },
+  globals: {
+    viewport: { value: "mobile2", isRotated: false },
   },
 }

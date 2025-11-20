@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { GridMaster } from "../../ui/GridMaster/GridMaster"
 import { CardsFilterClient } from "./CardsFilterClient"
-import {
-  additionalMockPosts,
-  additionalMockTags,
-  mockConfig,
-  mockPosts,
-  mockTags,
-} from "./CardsFilterClient.mocks"
+import { mockConfig, mockPosts, mockTags } from "./CardsFilterClient.mocks"
 
 const meta: Meta<typeof CardsFilterClient> = {
   title: "Storyblok/CardsFilterClient",
@@ -49,14 +43,6 @@ export const Default: Story = {
   },
 }
 
-export const WithManyPosts: Story = {
-  args: {
-    posts: [...mockPosts, ...additionalMockPosts],
-    availableTags: [...mockTags, ...additionalMockTags],
-    config: mockConfig,
-  },
-}
-
 export const Tablet: Story = {
   args: {
     posts: mockPosts,
@@ -64,7 +50,7 @@ export const Tablet: Story = {
     config: mockConfig,
   },
   globals: {
-    viewport: { value: "tablet", isRotated: false },
+    viewport: { value: "tablet" },
   },
 }
 
@@ -75,6 +61,6 @@ export const Mobile: Story = {
     config: mockConfig,
   },
   globals: {
-    viewport: { value: "mobile2", isRotated: false },
+    viewport: { value: "mobile2" },
   },
 }

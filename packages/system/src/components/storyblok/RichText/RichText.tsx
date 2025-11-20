@@ -1,50 +1,21 @@
 import { render } from "storyblok-rich-text-react-renderer"
-import type {
-  BaselineStatusBlockStoryblok,
-  HeroDefaultStoryblok,
-  LogoDefaultStoryblok,
-  RichTextBlockStoryblok,
-  RichTextCodeBlockStoryblok,
-  RichtextStoryblok,
-  SnippetBlockStoryblok,
-} from "../../../types/storyblok-components"
-import { BaselineStatusBlock } from "../../storyblok/BaselineStatusBlock"
-import { HeroDefault } from "../../storyblok/HeroDefault"
-import { LogoDefault } from "../../storyblok/LogoDefault"
-import { RichTextBlock } from "../../storyblok/RichTextBlock"
-import { RichTextCodeBlock } from "../../storyblok/RichTextCodeBlock"
-import { SnippetBlock } from "../../storyblok/SnippetBlock"
-import { Typography } from "../../storyblok/Typography"
+import type { RichtextStoryblok } from "../../../types/storyblok-components"
+import { Typography } from "../Typography"
 
 interface RichTextProps {
   content: RichtextStoryblok
   className?: string
+  blokResolvers?: Record<string, (props: any) => React.JSX.Element>
 }
 
-export function RichText({ content }: RichTextProps): React.JSX.Element | null {
+export function RichText({
+  content,
+  blokResolvers = {},
+}: RichTextProps): React.JSX.Element | null {
   if (!content) return null
 
   const renderedContent = render(content, {
-    blokResolvers: {
-      baseline_status_block: (props) => (
-        <BaselineStatusBlock blok={props as BaselineStatusBlockStoryblok} />
-      ),
-      hero_default: (props) => (
-        <HeroDefault blok={props as HeroDefaultStoryblok} />
-      ),
-      logo_default: (props) => (
-        <LogoDefault blok={props as LogoDefaultStoryblok} />
-      ),
-      rich_text_block: (props) => (
-        <RichTextBlock blok={props as RichTextBlockStoryblok} />
-      ),
-      rich_text_code_block: (props) => (
-        <RichTextCodeBlock blok={props as RichTextCodeBlockStoryblok} />
-      ),
-      snippet_block: (props) => (
-        <SnippetBlock blok={props as SnippetBlockStoryblok} />
-      ),
-    },
+    blokResolvers,
     markResolvers: {
       link: (children, props) => (
         <a

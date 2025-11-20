@@ -1,11 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
+import { StorybookBackground } from "../../storybook"
 import { GridMaster } from "../../ui/GridMaster/GridMaster"
 import { LinkList } from "./LinkList"
-import {
-  mockNavigationLinkList,
-  mockResourcesLinkList,
-  mockSocialLinkList,
-} from "./LinkList.mocks"
+import { mockNavigationLinkList } from "./LinkList.mocks"
 
 const meta: Meta<typeof LinkList> = {
   title: "Storyblok/LinkList",
@@ -17,8 +14,13 @@ const meta: Meta<typeof LinkList> = {
   decorators: [
     (Story) => (
       <GridMaster>
-        <main style={{ padding: "2rem", maxWidth: "800px" }}>
-          <Story />
+        <main>
+          <StorybookBackground
+            variant="secondary-700"
+            style={{ padding: "2rem", gridColumn: "1 / -1" }}
+          >
+            <Story />
+          </StorybookBackground>
         </main>
       </GridMaster>
     ),
@@ -40,19 +42,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {}
 
 export const Tablet: Story = {
-  args: {
-    blok: mockSocialLinkList,
-  },
   globals: {
-    viewport: { value: "tablet", isRotated: false },
+    viewport: { value: "tablet" },
   },
 }
 
 export const Mobile: Story = {
-  args: {
-    blok: mockResourcesLinkList,
-  },
   globals: {
-    viewport: { value: "mobile2", isRotated: false },
+    viewport: { value: "mobile2" },
   },
 }

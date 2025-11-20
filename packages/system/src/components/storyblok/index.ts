@@ -21,7 +21,7 @@ import { PageLayout } from "./PageLayout"
 import { PageNotFound } from "./PageNotFound"
 import { PagePost } from "./PagePost"
 import { PostHeader } from "./PostHeader"
-import { RichText } from "./RichText"
+import { RichText, StoryblokRichText } from "./RichText"
 import { RichTextBlock } from "./RichTextBlock"
 import { RichTextCodeBlock } from "./RichTextCodeBlock"
 import { SnippetBlock } from "./SnippetBlock"
@@ -50,5 +50,6 @@ export {
   RichTextBlock,
   RichTextCodeBlock,
   SnippetBlock,
+  StoryblokRichText,
   Typography,
 }

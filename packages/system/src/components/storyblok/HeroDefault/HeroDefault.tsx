@@ -1,7 +1,7 @@
 import { useId } from "react"
 import type { HeroDefaultStoryblok } from "../../../types/storyblok-components"
 import { CustomElement } from "../../ui/CustomElement"
-import { RichText } from "../RichText"
+import { StoryblokRichText } from "../RichText"
 import { Typography } from "../Typography"
 
 interface HeroDefaultProps {
@@ -23,7 +23,7 @@ export function HeroDefault({ blok }: HeroDefaultProps): React.JSX.Element {
       >
         {heading}
       </Typography>
-      {subheading && <RichText content={subheading} />}
+      {subheading && <StoryblokRichText content={subheading} />}
     </CustomElement>
   )
 }

@@ -4,9 +4,9 @@ import type {
   RichtextStoryblok,
   SnippetBlockStoryblok,
 } from "../../../types/storyblok-components"
-import { BaselineStatusBlock } from "../BaselineStatusBlock"
-import { RichTextCodeBlock } from "../RichTextCodeBlock"
-import { SnippetBlock } from "../SnippetBlock"
+import { BaselineStatusBlock } from "../BaselineStatusBlock/index"
+import { RichTextCodeBlock } from "../RichTextCodeBlock/RichTextCodeBlock"
+import { SnippetBlock } from "../SnippetBlock/SnippetBlock"
 import { RichText } from "./RichText"
 
 interface StoryblokRichTextProps {

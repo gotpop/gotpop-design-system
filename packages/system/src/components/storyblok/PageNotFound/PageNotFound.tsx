@@ -1,10 +1,10 @@
 import Link from "next/link"
-import type { NotFoundStoryblok } from "../../../types/storyblok-components"
-import { PageLayout } from "../PageLayout/PageLayout"
-import "./PageNotFound.css"
 import { useId } from "react"
+import type { NotFoundStoryblok } from "../../../types/storyblok-components"
 import { CustomElement } from "../../ui/CustomElement"
-import { Typography } from "../Typography"
+import { PageLayout } from "../PageLayout/PageLayout"
+import { Typography } from "../Typography/Typography"
+import "./PageNotFound.css"
 
 interface PageNotFoundProps {
   header: React.ReactNode

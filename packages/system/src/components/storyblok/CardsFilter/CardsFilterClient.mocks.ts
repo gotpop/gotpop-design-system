@@ -1,5 +1,5 @@
 import type { ConfigStoryblok } from "../../../types/storyblok-components"
-import type { PostProps } from "../Card"
+import type { PostProps } from "../Card/Card"
 import type { TagDatasourceEntry } from "./CardsFilterClient"
 
 export const mockPosts: PostProps[] = [

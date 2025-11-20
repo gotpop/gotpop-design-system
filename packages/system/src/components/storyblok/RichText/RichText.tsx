@@ -1,6 +1,6 @@
 import { render } from "storyblok-rich-text-react-renderer"
 import type { RichtextStoryblok } from "../../../types/storyblok-components"
-import { Typography } from "../Typography"
+import { Typography } from "../Typography/Typography"
 
 interface RichTextProps {
   content: RichtextStoryblok

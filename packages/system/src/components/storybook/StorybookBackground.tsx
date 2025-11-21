@@ -3,7 +3,7 @@ import "./StorybookBackground.css"
 
 interface StorybookBackgroundProps {
   children: ReactNode
-  variant?: "secondary-700" | "primary" | "dark" | "light"
+  variant?: "secondary-700" | "primary" | "dark" | "light" | "grid-dark"
   className?: string
 }
 

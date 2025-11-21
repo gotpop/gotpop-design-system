@@ -17,6 +17,20 @@
   color: var(--text-light, #ffffff);
 }
 
+.storybook-background--grid-dark {
+  --position: 0 -5px, -5px 0px;
+
+  background-color: var(--secondary-700, #374151);
+  color: var(--text-light, #ffffff);
+  background-image: var(--grid-css);
+  background-size: 16px 16px;
+  background-position: var(--position);
+
+  @media (-webkit-max-device-pixel-ratio: 1.5), (max-resolution: 1.5dppx) {
+    --position: 0 -5px, -6px 0px;
+  }
+}
+
 .storybook-background--primary {
   background-color: var(--primary, #3b82f6);
   color: var(--text-light, #ffffff);

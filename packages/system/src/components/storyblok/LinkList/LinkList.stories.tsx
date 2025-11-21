@@ -16,7 +16,7 @@ const meta: Meta<typeof LinkList> = {
       <GridMaster>
         <main>
           <StorybookBackground
-            variant="secondary-700"
+            variant="grid-dark"
             style={{ padding: "2rem", gridColumn: "1 / -1" }}
           >
             <Story />

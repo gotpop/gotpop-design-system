@@ -10,6 +10,10 @@
 
     width: auto;
     margin-bottom: var(--spacing-md);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   details {

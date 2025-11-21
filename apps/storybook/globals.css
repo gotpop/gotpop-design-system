@@ -29,27 +29,3 @@ html {
   font-variant-ligatures: common-ligatures;
   scrollbar-gutter: auto;
 }
-
-/* .sb-show-main.sb-main-centered #storybook-root {
-  padding: 0;
-} */
-
-/* Make Storybook canvas 100% width */
-/* .sb-show-main.sb-main-centered #storybook-root > * {
-  width: 100% !important;
-  max-width: 100% !important;
-} */
-
-/* .sb-show-main.sb-main-centered {
-  padding: 0 !important;
-  margin: 0 !important;
-} */
-
-/* .sb-show-main .sb-main-centered {
-  max-width: 100% !important;
-  width: 100% !important;
-} */
-
-/* .search-field {
-  border-radius: 0 !important;
-} */

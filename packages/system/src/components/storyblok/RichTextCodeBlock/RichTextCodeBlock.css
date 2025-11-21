@@ -17,14 +17,14 @@
   }
 
   code {
-    min-width: 38rem;
     background-color: transparent;
+    display: block;
     font-family: var(--font-monaspace);
     font-palette: --github;
     font-size: var(--font-size-base);
     line-height: 1.785;
+    min-width: 38rem;
     padding: 0;
     white-space: pre;
-    display: block;
   }
 }

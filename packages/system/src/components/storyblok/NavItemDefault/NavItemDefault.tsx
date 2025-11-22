@@ -22,6 +22,7 @@ export function NavItemDefault({
   const linkProps = getStoryblokLinkProps(blok.link)
   const { href, target, rel } = linkProps
 
+  const isPopover = blok.use_popover
   const hasText = Boolean(blok.text)
   const hasIcon = Boolean(blok.icon)
   const hasBoth = hasText && hasIcon
@@ -58,6 +59,16 @@ export function NavItemDefault({
     }
 
     return null
+  }
+
+  if (isPopover) {
+    return (
+      <CustomElement tag="nav-item" className={classNames} style={style}>
+        <button type="button" popoverTarget="popover-contact-form" aria-controls="popover-contact-form" aria-expanded="false">
+          {renderContent()}
+        </button>
+      </CustomElement>
+    )
   }
 
   return (

@@ -7,7 +7,7 @@ import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
 
 interface PopoverBlok {
-  popover_uuid?: string
+  content?: SbBlokData[]
   [key: string]: unknown
 }
 
@@ -17,7 +17,7 @@ interface WithPopoverDataProps {
   config: ConfigStoryblok | null
 }
 
-/** Higher-Order Component that fetches and renders popover content */
+/** Higher-Order Component that renders popover content */
 export function withPopoverData(
   ViewComponent: React.ComponentType<WithPopoverDataProps>
 ) {
@@ -28,25 +28,21 @@ export function withPopoverData(
     blok: PopoverBlok
     config?: ConfigStoryblok | null
   }) => {
+    // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
-    const popoverBlok = blok?.content
 
-    console.log("popoverBlok !!!!!!!!!!!!!", popoverBlok)
-
-    // Render nested content blocks from the popover blok
-    const content = (popoverBlok as any)?.content?.map(
-      (contentBlok: SbBlokData) => (
-        <StoryblokServerComponent
-          blok={contentBlok}
-          key={contentBlok._uid}
-          config={config}
-        />
-      )
-    )
+    // Render nested content blocks from the popover blok (like withNavData does with nav_items)
+    const content = blok.content?.map((contentBlok: SbBlokData) => (
+      <StoryblokServerComponent
+        blok={contentBlok}
+        key={contentBlok._uid}
+        config={config}
+      />
+    ))
 
     return (
       <ViewComponent
-        blok={popoverBlok as any}
+        blok={blok}
         content={content}
         config={config}
       />

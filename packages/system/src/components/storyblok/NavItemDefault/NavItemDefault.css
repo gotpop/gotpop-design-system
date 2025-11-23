@@ -3,26 +3,27 @@
     grid-column: var(--grid-column, auto);
   }
 
+  span:has(svg) {
+    --size: calc(1cap * 1.2);
+
+    display: inline-flex;
+
+    svg {
+      max-width: var(--size);
+      max-height: var(--size);
+    }
+  }
+
   button {
     all: unset;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: var(--spacing-base);
-
-    span:has(svg) {
-      --size: 1.05rem;
-
-      display: inline-flex;
-
-      svg {
-        max-width: var(--size);
-        max-height: var(--size);
-      }
-    }
   }
 
-  a {
+  a,
+  button {
     --background-colour: var(--secondary-700);
     --colour: var(--light-100);
     --transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -33,7 +34,7 @@
     display: flex;
     font-size: var(--text-base);
     gap: var(--spacing-base);
-    justify-content: center;
+    justify-content: space-around;
     min-height: var(--spacing-md);
     padding: var(--padding, 0 var(--spacing-md));
     text-align: center;
@@ -41,18 +42,7 @@
     transition: var(--transition);
 
     @media screen and (width >= 1480px) {
-      --padding: 0;
-    }
-
-    span:has(svg) {
-      --size: 1.05rem;
-
-      display: inline-flex;
-
-      svg {
-        max-width: var(--size);
-        max-height: var(--size);
-      }
+      --padding: 0 var(--spacing-base);
     }
 
     &.active {

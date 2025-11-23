@@ -67,10 +67,10 @@ export function NavItemDefault({
         <button
           type="button"
           popoverTarget="popover-contact-form"
-          aria-controls="popover-contact-form1"
+          aria-controls="popover-contact-form"
           aria-expanded="false"
         >
-          {renderContent()}!
+          {renderContent()}
         </button>
       </CustomElement>
     )

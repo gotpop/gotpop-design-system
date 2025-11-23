@@ -6,6 +6,20 @@
   button {
     all: unset;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-base);
+
+    span:has(svg) {
+      --size: 1.05rem;
+
+      display: inline-flex;
+
+      svg {
+        max-width: var(--size);
+        max-height: var(--size);
+      }
+    }
   }
 
   a {

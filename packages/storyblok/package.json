@@ -47,7 +47,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit",
-    "publish:github": "yarn version --patch && yarn build && yarn publish"
+    "publish:github": "npm version patch && yarn build && npm publish && cd ../.. && rm -f package-lock.json"
   },
   "dependencies": {
     "@storyblok/react": "^5.0.0"

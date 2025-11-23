@@ -58,6 +58,12 @@ export const ExternalLink: Story = {
   },
 }
 
+export const Button: Story = {
+  args: {
+    blok: { ...mockTextOnlyNavItem, use_popover: true },
+  },
+}
+
 export const Tablet: Story = {
   args: {
     blok: mockIconTextNavItem,

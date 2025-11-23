@@ -64,8 +64,13 @@ export function NavItemDefault({
   if (isPopover) {
     return (
       <CustomElement tag="nav-item" className={classNames} style={style}>
-        <button type="button" popoverTarget="popover-contact-form" aria-controls="popover-contact-form" aria-expanded="false">
-          {renderContent()}
+        <button
+          type="button"
+          popoverTarget="popover-contact-form"
+          aria-controls="popover-contact-form1"
+          aria-expanded="false"
+        >
+          {renderContent()}!
         </button>
       </CustomElement>
     )

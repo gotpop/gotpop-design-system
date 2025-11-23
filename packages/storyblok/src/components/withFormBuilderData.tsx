@@ -42,4 +42,3 @@ export function withFormBuilderData(
     return <ViewComponent blok={blok} content={content} config={config} />
   }
 }
-

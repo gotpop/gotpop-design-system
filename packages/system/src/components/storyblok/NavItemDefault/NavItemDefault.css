@@ -3,6 +3,11 @@
     grid-column: var(--grid-column, auto);
   }
 
+  button {
+    all: unset;
+    cursor: pointer;
+  }
+
   a {
     --background-colour: var(--secondary-700);
     --colour: var(--light-100);

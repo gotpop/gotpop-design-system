@@ -9,6 +9,7 @@ interface HeaderDefaultProps {
   nav?: React.ReactNode
   logo?: React.ReactNode
   config?: ConfigStoryblok | null
+  popover?: React.ReactNode
 }
 
 export async function HeaderDefault({
@@ -16,11 +17,13 @@ export async function HeaderDefault({
   nav,
   logo,
   config: _config,
+  popover,
 }: HeaderDefaultProps) {
   return (
     <header className="header">
       {logo}
       {nav}
+      {popover}
     </header>
   )
 }

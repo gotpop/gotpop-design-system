@@ -1,6 +1,5 @@
 /**
  * Storyblok Components Barrel Export
- *
  */
 
 import { BaselineStatusBlock } from "./BaselineStatusBlock"
@@ -20,6 +19,7 @@ import { PageFilter } from "./PageFilter"
 import { PageLayout } from "./PageLayout"
 import { PageNotFound } from "./PageNotFound"
 import { PagePost } from "./PagePost"
+import { PagePostImage } from "./PagePostImage"
 import { PostHeader } from "./PostHeader"
 import { RichText, StoryblokRichText } from "./RichText"
 import { RichTextBlock } from "./RichTextBlock"
@@ -45,6 +45,7 @@ export {
   PageLayout,
   PageNotFound,
   PagePost,
+  PagePostImage,
   PostHeader,
   RichText,
   RichTextBlock,

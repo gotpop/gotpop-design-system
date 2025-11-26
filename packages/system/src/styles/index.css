@@ -17,6 +17,7 @@
 @import "./components/properties.css";
 @import "./components/layout.css";
 @import "./components/typography.css";
+@import "./components/popovers.css";
 @import "./icons/hamburger.css";
 
 /* Add to your global CSS or typography.css */

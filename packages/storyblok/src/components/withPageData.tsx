@@ -51,13 +51,26 @@ export function withPageData<T extends PageBlok>(
       { uuid: footerUuid }
     )
 
-    const header = (
-      <StoryblokServerComponent blok={headerData.content} config={config} />
-    )
+    if (!headerData?.content) {
+      console.error(
+        `[withPageData] Missing headerData.content for uuid: ${headerUuid}`,
+        JSON.stringify(headerData, null, 2)
+      )
+    }
 
-    const footer = (
+    const header = headerData?.content ? (
+      <StoryblokServerComponent blok={headerData.content} config={config} />
+    ) : null
+
+    if (!footerData?.content) {
+      console.error(
+        `[withPageData] Missing footerData.content for uuid: ${footerUuid}`,
+        JSON.stringify(footerData, null, 2)
+      )
+    }
+    const footer = footerData?.content ? (
       <StoryblokServerComponent blok={footerData.content} config={config} />
-    )
+    ) : null
 
     const blocks = blok.body?.map((nestedBlok) => (
       <StoryblokServerComponent

@@ -11,6 +11,7 @@ import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
 import { getStoryblokData } from "../data/get-storyblok-data"
+import type { StoryblokStoryResponse } from "../types"
 
 interface WithCardsImageDataProps {
   blok: CardsStoryblok
@@ -43,12 +44,15 @@ export function withCardsImageData(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const [postsResult, tagsResult] = await Promise.all([
-      getStoryblokData("allPostsWithTags"),
-      getStoryblokData("tagsFromDatasource"),
-    ])
+    const tagsResult = await getStoryblokData("tagsFromDatasource")
+    const postsResulttest = await getStoryblokData("allPostsWithTags")
 
-    const { data: postsResult2 } = await getStoryblokData("stories", {
+    console.log(
+      "[withCardsImageData] postsResulttest:",
+      JSON.stringify(postsResulttest, null, 2)
+    )
+
+    const postsStoriesResult = await getStoryblokData("stories", {
       starts_with: `portfolio`,
       version: "published",
       excluding_fields: "body",
@@ -60,23 +64,26 @@ export function withCardsImageData(
     })
 
     console.log(
-      "[withCardsImageData] postsResult2:",
-      JSON.stringify(postsResult2, null, 2)
+      "[withCardsImageData] postsStoriesResult:",
+      JSON.stringify(postsStoriesResult, null, 2)
     )
 
-    // if (postsResult2.error || tagsResult.error) {
-    //   console.error("[withCardsImageData] Error fetching data:", {
-    //     postsError: postsResult2.error,
-    //     tagsError: tagsResult.error,
-    //   })
-    // }
-
-    // const posts = (postsResult2.data as PostProps[]) || []
+    const postsDataRaw = postsStoriesResult.data
+    const posts = Array.isArray(postsDataRaw)
+      ? // biome-ignore lint/suspicious/noExplicitAny: temp
+        (postsDataRaw as any[]).map((story) => ({
+          uuid: story.uuid,
+          full_slug: story.full_slug,
+          name: story.name,
+          published_at: story.published_at,
+          content: story.content,
+        }))
+      : []
     const availableTags = (tagsResult.data as TagDatasourceEntry[]) || []
 
-    const blocks = postsResult2.map((post) => (
+    const blocks = posts.map((post, idx) => (
       <StoryblokServerComponent
-        key={post.uuid}
+        key={post.uuid || idx}
         blok={transformPostToBlok(post)}
         config={config}
       />

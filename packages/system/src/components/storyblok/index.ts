@@ -26,11 +26,15 @@ import { RichTextBlock } from "./RichTextBlock"
 import { RichTextCodeBlock } from "./RichTextCodeBlock"
 import { SnippetBlock } from "./SnippetBlock"
 import { Typography } from "./Typography"
+import { CardImage } from "./CardImage"
+import { CardsImage } from "./CardsImage"
 
 export {
   BaselineStatusBlock,
   Card,
   Cards,
+  CardImage,
+  CardsImage,
   CardsControl,
   CardsFilterClient,
   FooterDefault,

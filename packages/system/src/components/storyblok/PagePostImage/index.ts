@@ -1,0 +1,1 @@
+export { PagePostImage } from "./PagePostImage"

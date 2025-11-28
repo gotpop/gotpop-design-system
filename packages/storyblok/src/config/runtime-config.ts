@@ -13,22 +13,22 @@ function getBootstrapPrefix(): string {
 
 /** Fetches config from Storyblok with caching - this is the ONLY place config should be fetched from the API */
 export async function getConfig(): Promise<ConfigStoryblok> {
-  console.log(
-    "[runtime-config] getConfig called, cachedConfig:",
-    !!cachedConfig
-  )
+  // console.log(
+  //   "[runtime-config] getConfig called, cachedConfig:",
+  //   !!cachedConfig
+  // )
   if (cachedConfig) {
-    console.log("[runtime-config] Returning cached config")
+    // console.log("[runtime-config] Returning cached config")
     return cachedConfig
   }
 
   try {
     const bootstrapPrefix = getBootstrapPrefix()
     const configPath = `${bootstrapPrefix}/config`
-    console.log("[runtime-config] Fetching config from path:", configPath)
+    // console.log("[runtime-config] Fetching config from path:", configPath)
 
     const storyblokApi = getStoryblokApi()
-    console.log("[runtime-config] getStoryblokApi() returned:", !!storyblokApi)
+    // console.log("[runtime-config] getStoryblokApi() returned:", !!storyblokApi)
 
     if (!storyblokApi) {
       throw new Error(
@@ -42,9 +42,9 @@ export async function getConfig(): Promise<ConfigStoryblok> {
 
     cachedConfig = response.data.story.content as ConfigStoryblok
 
-    console.log(
-      `[Runtime Config] Loaded config with prefix: ${cachedConfig.root_name_space}`
-    )
+    // console.log(
+    //   `[Runtime Config] Loaded config with prefix: ${cachedConfig.root_name_space}`
+    // )
 
     return cachedConfig
   } catch (error) {

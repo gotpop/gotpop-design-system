@@ -16,6 +16,8 @@ type ValidTag =
   | "page-layout"
   | "select-option"
   | "nav-item"
+  | "form-input-text"
+  | "form-input-textarea"
 
 interface CustomElementProps {
   children?: ReactNode

@@ -5,7 +5,8 @@ import type {
 import { formatDate } from "../../../utils/date-formatter"
 import { CustomElement } from "../../ui/CustomElement"
 import { Typography } from "../Typography/Typography"
-import "./Card.css"
+import "./CardImage.css"
+import Image from "next/image"
 
 export interface PostProps {
   uuid: string
@@ -15,17 +16,18 @@ export interface PostProps {
   content: PagePostStoryblok
 }
 
-export interface CardProps {
+export interface CardImageProps {
   blok: PostProps
   config?: ConfigStoryblok | null
 }
 
-export function Card({ blok, config }: CardProps) {
+export function CardImage({ blok, config }: CardImageProps) {
   const { full_slug, name, published_at, content } = blok
   const {
     heading,
     description,
     published_date,
+    image_hero,
     tags = [],
     view_transition_name: viewTransitionName,
   } = content || {}
@@ -52,6 +54,7 @@ export function Card({ blok, config }: CardProps) {
   return (
     <CustomElement
       tag="box-grid"
+      className="card-with-image"
       style={{
         viewTransitionName: viewTransitionName,
       }}
@@ -64,7 +67,7 @@ export function Card({ blok, config }: CardProps) {
           dateTime={formattedDate}
           className="margin-none"
         >
-          {formattedDate}
+          {formattedDate} !!!!!
         </Typography>
         <div className="tags">{tagList}</div>
       </div>
@@ -73,6 +76,21 @@ export function Card({ blok, config }: CardProps) {
           {title}
         </a>
       </Typography>
+      {image_hero?.filename && (
+        <div
+          className="card-image-hero"
+          style={{ aspectRatio: "640 / 316", width: "100%" }}
+        >
+          <Image
+            src={image_hero.filename}
+            alt={image_hero.alt || title}
+            width={640}
+            height={316}
+            style={{ objectFit: "cover", width: "100%", height: "auto" }}
+            priority={false}
+          />
+        </div>
+      )}
       <Typography tag="p" variant="text-base" shade="charcoal">
         {description}
       </Typography>

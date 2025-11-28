@@ -1,0 +1,48 @@
+[popover] {
+  --popover-timing: 0.3s;
+  --popover-ease: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --translate-distance: 10rem;
+  --opacity: 0;
+
+  margin: 0;
+  opacity: var(--opacity);
+  padding: 0;
+  translate: var(--translate-distance);
+  transition:
+    opacity var(--popover-timing) var(--popover-ease),
+    translate var(--popover-timing) var(--popover-ease),
+    overlay var(--popover-timing) allow-discrete,
+    display var(--popover-timing) allow-discrete;
+
+  &:popover-open {
+    --opacity: 1;
+    --translate-distance: 0;
+
+    @starting-style {
+      --opacity: 0;
+      --translate-distance: 10rem;
+    }
+  }
+
+  &::backdrop {
+    --backdrop-timing: 0.3s;
+
+    background-color: transparent;
+    transition:
+      display var(--backdrop-timing) allow-discrete,
+      overlay var(--backdrop-timing) allow-discrete,
+      background-color var(--backdrop-timing);
+  }
+
+  &:popover-open::backdrop {
+    background-color: rgb(0 0 0 / 55%);
+  }
+}
+
+/* Nesting (&) is not supported for pseudo-elements
+so must be a standalone starting-style block. */
+@starting-style {
+  [popover]:popover-open::backdrop {
+    background-color: transparent;
+  }
+}

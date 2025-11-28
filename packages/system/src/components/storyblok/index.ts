@@ -4,9 +4,11 @@
 
 import { BaselineStatusBlock } from "./BaselineStatusBlock"
 import { Card } from "./Card"
+import { CardImage } from "./CardImage"
 import { Cards } from "./Cards"
 import { CardsControl } from "./CardsControl"
 import { CardsFilterClient } from "./CardsFilter/CardsFilterClient"
+import { CardsImage } from "./CardsImage"
 import { FooterDefault } from "./FooterDefaultBlock"
 import { HeaderDefault } from "./HeaderDefault"
 import { HeroDefault } from "./HeroDefault"
@@ -26,8 +28,6 @@ import { RichTextBlock } from "./RichTextBlock"
 import { RichTextCodeBlock } from "./RichTextCodeBlock"
 import { SnippetBlock } from "./SnippetBlock"
 import { Typography } from "./Typography"
-import { CardImage } from "./CardImage"
-import { CardsImage } from "./CardsImage"
 
 export {
   BaselineStatusBlock,

@@ -59,7 +59,6 @@ export function CardImage({ blok, config }: CardImageProps) {
         viewTransitionName: viewTransitionName,
       }}
     >
-
       <div className="meta">
         <Typography
           tag="time"
@@ -77,8 +76,11 @@ export function CardImage({ blok, config }: CardImageProps) {
           {title}
         </a>
       </Typography>
-        {image_hero?.filename && (
-        <div className="card-image-hero" style={{ aspectRatio: "640 / 316", width: "100%" }}>
+      {image_hero?.filename && (
+        <div
+          className="card-image-hero"
+          style={{ aspectRatio: "640 / 316", width: "100%" }}
+        >
           <Image
             src={image_hero.filename}
             alt={image_hero.alt || title}

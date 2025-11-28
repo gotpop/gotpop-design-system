@@ -6,7 +6,7 @@ import type {
   TagDatasourceEntry,
 } from "../../../types"
 import { CardsFilterClient } from "../CardsFilter/CardsFilterClient"
-import "./Cards.css"
+import "./CardsImage.css"
 
 interface CardsImageProps {
   blok: CardsStoryblok

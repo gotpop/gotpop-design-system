@@ -6,6 +6,7 @@ import { formatDate } from "../../../utils/date-formatter"
 import { CustomElement } from "../../ui/CustomElement"
 import { Typography } from "../Typography/Typography"
 import "./CardImage.css"
+import Image from "next/image"
 
 export interface PostProps {
   uuid: string
@@ -26,6 +27,7 @@ export function CardImage({ blok, config }: CardImageProps) {
     heading,
     description,
     published_date,
+    image_hero,
     tags = [],
     view_transition_name: viewTransitionName,
   } = content || {}
@@ -52,10 +54,12 @@ export function CardImage({ blok, config }: CardImageProps) {
   return (
     <CustomElement
       tag="box-grid"
+      className="card-with-image"
       style={{
         viewTransitionName: viewTransitionName,
       }}
     >
+
       <div className="meta">
         <Typography
           tag="time"
@@ -64,7 +68,7 @@ export function CardImage({ blok, config }: CardImageProps) {
           dateTime={formattedDate}
           className="margin-none"
         >
-          {formattedDate}
+          {formattedDate} !!!!!
         </Typography>
         <div className="tags">{tagList}</div>
       </div>
@@ -73,6 +77,18 @@ export function CardImage({ blok, config }: CardImageProps) {
           {title}
         </a>
       </Typography>
+        {image_hero?.filename && (
+        <div className="card-image-hero" style={{ aspectRatio: "640 / 316", width: "100%" }}>
+          <Image
+            src={image_hero.filename}
+            alt={image_hero.alt || title}
+            width={640}
+            height={316}
+            style={{ objectFit: "cover", width: "100%", height: "auto" }}
+            priority={false}
+          />
+        </div>
+      )}
       <Typography tag="p" variant="text-base" shade="charcoal">
         {description}
       </Typography>

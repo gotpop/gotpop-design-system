@@ -25,7 +25,7 @@ interface WithCardsImageDataProps {
 function transformPostToBlok(post: PostProps): SbBlokData {
   return {
     ...post,
-    component: "card",
+    component: "card_image",
     _uid: post.uuid,
   } as SbBlokData
 }
@@ -45,12 +45,12 @@ export function withCardsImageData(
     const config = providedConfig ?? (await getConfig())
 
     const tagsResult = await getStoryblokData("tagsFromDatasource")
-    const postsResulttest = await getStoryblokData("allPostsWithTags")
+    // const postsResulttest = await getStoryblokData("allPostsWithTags")
 
-    console.log(
-      "[withCardsImageData] postsResulttest:",
-      JSON.stringify(postsResulttest, null, 2)
-    )
+    // console.log(
+    //   "[withCardsImageData] postsResulttest:",
+    //   JSON.stringify(postsResulttest, null, 2)
+    // )
 
     const postsStoriesResult = await getStoryblokData("stories", {
       starts_with: `portfolio`,

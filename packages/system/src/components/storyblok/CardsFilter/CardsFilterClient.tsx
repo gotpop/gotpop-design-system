@@ -1,7 +1,7 @@
 "use client"
 
 import { startTransition, ViewTransition } from "react"
-import type { ConfigStoryblok } from "../../../index"
+import { CardImage, type ConfigStoryblok } from "../../../index"
 import { CustomElement } from "../../ui/CustomElement"
 import type { PostProps } from "../Card/Card"
 import { Card } from "../Card/Card"
@@ -52,6 +52,11 @@ export function CardsFilterClient({
     })
   }
 
+  // log posts for debugging as an a stringified JSON
+  console.log("SEXY Posts:", JSON.stringify(posts, null, 2))
+
+  // if any of the posts have component 'card_image', use CardImage to render them
+
   // Transform tags for CardsControl options format
   const tagOptions = [
     { value: "all", label: "All Posts" },
@@ -64,7 +69,7 @@ export function CardsFilterClient({
   const output =
     filteredAndSortedPosts.length > 0 &&
     filteredAndSortedPosts.map((blok) => (
-      <Card key={blok.uuid} blok={blok} config={config} />
+      <CardImage key={blok.uuid} blok={blok} config={config} />
     ))
 
   return (

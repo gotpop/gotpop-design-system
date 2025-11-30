@@ -11,7 +11,6 @@ import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
 import { getStoryblokData } from "../data/get-storyblok-data"
-import type { StoryblokStoryResponse } from "../types"
 
 interface WithCardsImageDataProps {
   blok: CardsStoryblok

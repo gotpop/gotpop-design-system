@@ -1,4 +1,4 @@
-import type { PostProps } from "./CardImage"
+import type { PostImageProps } from "./CardImage"
 
 export const mockConfig = {
   component: "Config" as const,
@@ -8,7 +8,7 @@ export const mockConfig = {
   _uid: "config-123",
 }
 
-export const baseMockPost: PostProps = {
+export const baseMockPost: PostImageProps = {
   uuid: "12345-67890",
   full_slug: "blog/example-post",
   name: "Example Blog Post",

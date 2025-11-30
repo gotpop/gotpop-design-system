@@ -8,7 +8,7 @@ import { Typography } from "../Typography/Typography"
 import "./CardImage.css"
 import Image from "next/image"
 
-export interface PostProps {
+export interface PostImageProps {
   uuid: string
   full_slug: string
   name: string
@@ -17,7 +17,7 @@ export interface PostProps {
 }
 
 export interface CardImageProps {
-  blok: PostProps
+  blok: PostImageProps
   config?: ConfigStoryblok | null
 }
 

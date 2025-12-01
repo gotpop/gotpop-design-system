@@ -6,11 +6,13 @@ import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
 
 interface FormBuilderBlok {
+  // biome-ignore lint/suspicious/noExplicitAny: Replace with proper type once forms are full integrated
   inputs?: any[]
   [key: string]: unknown
 }
 
 interface WithFormBuilderDataProps {
+  // biome-ignore lint/suspicious/noExplicitAny: Replace with proper type once forms are full integrated
   blok: any
   content: ReactNode
   config: ConfigStoryblok | null
@@ -30,7 +32,7 @@ export function withFormBuilderData(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    // Render input blocks from the form builder blok
+    // Render input blocks
     const content = blok.inputs?.map((inputBlok) => (
       <StoryblokServerComponent
         blok={inputBlok}

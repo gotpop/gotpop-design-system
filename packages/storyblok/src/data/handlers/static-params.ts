@@ -1,20 +1,11 @@
 import "server-only"
 
 import { getConfig } from "../../config/runtime-config"
-import type {
-  StoryblokDataConfig,
-  StoryblokDataResult,
-  StoryblokDataType,
-  StoryblokStoryResponse,
-} from "../../types"
+import type { StoryblokDataResult, StoryblokStoryResponse } from "../../types"
+import { getInitializedStoryblokApi } from "../get-storyblok-data"
 
 /** Generates static params for pre-rendering pages */
-export async function handleStaticParams(
-  getStoryblokData: (
-    dataType: StoryblokDataType,
-    config?: StoryblokDataConfig
-  ) => Promise<StoryblokDataResult>
-): Promise<StoryblokDataResult> {
+export async function handleStaticParams(): Promise<StoryblokDataResult> {
   const config = await getConfig()
 
   if (!config) {
@@ -22,11 +13,15 @@ export async function handleStaticParams(
   }
 
   const prefix = config.root_name_space || "blog"
+  const storyblokApi = getInitializedStoryblokApi()
 
-  const { data: allStories } = (await getStoryblokData("stories", {
+  const allStoriesResponse = await storyblokApi.get("cdn/stories", {
     version: "published",
     starts_with: `${prefix}/`,
-  })) as { data: StoryblokStoryResponse[] }
+  })
+
+  const allStories = allStoriesResponse.data
+    ?.stories as StoryblokStoryResponse[]
 
   const excluded = [
     "header",

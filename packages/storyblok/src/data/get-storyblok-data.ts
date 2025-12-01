@@ -4,31 +4,21 @@ import type { PostProps, TagDatasourceEntry } from "@gotpop/system"
 import { getStoryblokApi } from "@storyblok/react/rsc"
 import type {
   BaseConfig,
-  DatasourceEntriesConfig,
   PostsByTagConfig,
-  StoriesByUuidsConfig,
-  StoriesConfig,
-  StoryByUuidConfig,
   StoryblokDataConfig,
   StoryblokDataResult,
   StoryblokDataType,
-  StoryConfig,
 } from "../types"
 import { getErrorMessage } from "../utils/error-handling"
 import {
   handleAllPostsWithTags,
   handleAllTagsFromPosts,
   handleAvailableStoriesForError,
-  handleDatasourceEntries,
   handlePostsByTag,
   handleStaticParams,
-  handleStoriesByUuids,
-  handleStoryByUuid,
   handleTagsFromDatasource,
   handleTagsFromPosts,
 } from "./handlers"
-import { handleStories } from "./handlers/get-stories"
-import { handleStory } from "./handlers/get-story"
 
 /** Simplified Storyblok data fetching function - gradually replacing complex handlers with direct API access */
 export async function getStoryblokData(
@@ -36,31 +26,9 @@ export async function getStoryblokData(
   config: StoryblokDataConfig = {}
 ): Promise<StoryblokDataResult> {
   try {
-    const storyblokApi = getStoryblokApi()
+    // const storyblokApi = getStoryblokApi()
 
     switch (dataType) {
-      // Simple direct API cases - these can be replaced with direct calls
-      case "story":
-        return handleStory(storyblokApi, config as StoryConfig)
-
-      case "stories":
-        return handleStories(storyblokApi, config as StoriesConfig)
-
-      case "storyByUuid":
-        return handleStoryByUuid(storyblokApi, config as StoryByUuidConfig)
-
-      case "storiesByUuids":
-        return handleStoriesByUuids(
-          storyblokApi,
-          config as StoriesByUuidsConfig
-        )
-
-      case "datasourceEntries":
-        return handleDatasourceEntries(
-          storyblokApi,
-          config as DatasourceEntriesConfig
-        )
-
       // Complex handlers with business logic - keep for now
       case "tagsFromDatasource":
         return handleTagsFromDatasource(getStoryblokData, config)
@@ -78,10 +46,10 @@ export async function getStoryblokData(
         return handleAllTagsFromPosts(getStoryblokData, config as BaseConfig)
 
       case "availableStoriesForError":
-        return handleAvailableStoriesForError(getStoryblokData)
+        return handleAvailableStoriesForError()
 
       case "staticParams":
-        return handleStaticParams(getStoryblokData)
+        return handleStaticParams()
 
       default:
         return { data: null, error: `Unknown data type: ${dataType}` }

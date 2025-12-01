@@ -10,7 +10,7 @@ import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithCardsDataProps {
   blok: CardsStoryblok
@@ -43,20 +43,35 @@ export function withCardsData(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const [postsResult, tagsResult] = await Promise.all([
-      getStoryblokData("allPostsWithTags"),
-      getStoryblokData("tagsFromDatasource"),
-    ])
+    const storyblokApi = getInitializedStoryblokApi()
+    const tagsResult = await storyblokApi.get("cdn/datasources/tags")
 
-    if (postsResult.error || tagsResult.error) {
-      console.error("[withCardsData] Error fetching data:", {
-        postsError: postsResult.error,
-        tagsError: tagsResult.error,
-      })
-    }
+    const postsStoriesResult = await storyblokApi.get("cdn/stories", {
+      starts_with: `blog`,
+      version: "published",
+      is_startpage: false,
+      // excluding_slugs: "*/not-found,*/config",
+      filter_query: {
+        component: {
+          in: "page_post",
+        },
+      },
+    })
 
-    const posts = (postsResult.data as PostProps[]) || []
-    const availableTags = (tagsResult.data as TagDatasourceEntry[]) || []
+    const postsDataRaw = postsStoriesResult.data?.stories
+    const posts = Array.isArray(postsDataRaw)
+      ? // biome-ignore lint/suspicious/noExplicitAny: temp
+        (postsDataRaw as any[]).map((story) => ({
+          uuid: story.uuid,
+          full_slug: story.full_slug,
+          name: story.name,
+          published_at: story.published_at,
+          content: story.content,
+        }))
+      : []
+
+    const availableTags =
+      (tagsResult.data?.datasource_entries as TagDatasourceEntry[]) || []
 
     const blocks = posts.map((post) => (
       <StoryblokServerComponent

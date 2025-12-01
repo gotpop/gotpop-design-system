@@ -1,12 +1,22 @@
 import "server-only"
 
-import { getStoryblokData } from "../data"
+import { getConfig } from "../config/runtime-config"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 /** Fetches list of available story slugs for error page display */
 export async function getAvailableStoriesForError(): Promise<string[]> {
-  const { data } = await getStoryblokData("availableStoriesForError")
+  /** Fetch Storyblok config to get root_name_space */
+  const storyblokConfig = await getConfig()
+  const prefix = storyblokConfig?.root_name_space || "blog"
 
-  return data as string[]
+  const storyblokApi = getInitializedStoryblokApi()
+  const storiesResponse = await storyblokApi.get("cdn/stories", {
+    version: "draft",
+    starts_with: `${prefix}/`,
+  })
+
+  const stories = storiesResponse.data?.stories
+  return stories?.map((s: any) => s.full_slug) || []
 }
 
 /** Extracts error message from various error types */

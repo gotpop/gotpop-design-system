@@ -4,7 +4,7 @@ import type { ConfigStoryblok, HeaderDefaultStoryblok } from "@gotpop/system"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithHeaderDataProps {
   blok: HeaderDefaultStoryblok
@@ -35,12 +35,28 @@ export function withHeaderData(
       <StoryblokServerComponent blok={blok.logo[0]} config={config} />
     ) : null
 
-    const { data: popoverData } = blok.popover_select
-      ? await getStoryblokData("storyByUuid", { uuid: blok.popover_select })
-      : { data: null }
+    const storyblokApi = getInitializedStoryblokApi()
 
-    const popover = popoverData?.content ? (
-      <StoryblokServerComponent blok={popoverData.content} config={config} />
+    let popoverResponse = null
+    if (blok.popover_select) {
+      try {
+        popoverResponse = await storyblokApi.get("cdn/stories", {
+          version: "published",
+          by_uuids: blok.popover_select,
+        })
+      } catch (error) {
+        console.warn(
+          `[withHeaderData] Failed to fetch popover with UUID: ${blok.popover_select}`,
+          error
+        )
+      }
+    }
+
+    const popover = popoverResponse?.data?.stories?.[0]?.content ? (
+      <StoryblokServerComponent
+        blok={popoverResponse.data.stories[0].content}
+        config={config}
+      />
     ) : null
 
     return (

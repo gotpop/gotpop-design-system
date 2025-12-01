@@ -12,7 +12,6 @@ import type {
   StoryblokDataConfig,
   StoryblokDataResult,
   StoryblokDataType,
-  StoryblokStoryResponse,
   StoryConfig,
 } from "../types"
 import { getErrorMessage } from "../utils/error-handling"
@@ -31,33 +30,7 @@ import {
 import { handleStories } from "./handlers/get-stories"
 import { handleStory } from "./handlers/get-story"
 
-/** Function overloads for better type inference */
-export async function getStoryblokData<T = unknown>(
-  dataType: "storyByUuid",
-  config: StoryByUuidConfig
-): Promise<StoryblokDataResult<StoryblokStoryResponse<T>>>
-
-export async function getStoryblokData(
-  dataType: "story",
-  config: StoryConfig
-): Promise<StoryblokDataResult<StoryblokStoryResponse>>
-
-export async function getStoryblokData(
-  dataType: "stories",
-  config: StoriesConfig
-): Promise<StoryblokDataResult<StoryblokStoryResponse[]>>
-
-export async function getStoryblokData(
-  dataType: "storiesByUuids",
-  config: StoriesByUuidsConfig
-): Promise<StoryblokDataResult<StoryblokStoryResponse[]>>
-
-export async function getStoryblokData(
-  dataType: StoryblokDataType,
-  config?: StoryblokDataConfig
-): Promise<StoryblokDataResult>
-
-/** Unified Storyblok data fetching function */
+/** Simplified Storyblok data fetching function - gradually replacing complex handlers with direct API access */
 export async function getStoryblokData(
   dataType: StoryblokDataType,
   config: StoryblokDataConfig = {}
@@ -66,6 +39,7 @@ export async function getStoryblokData(
     const storyblokApi = getStoryblokApi()
 
     switch (dataType) {
+      // Simple direct API cases - these can be replaced with direct calls
       case "story":
         return handleStory(storyblokApi, config as StoryConfig)
 
@@ -87,6 +61,7 @@ export async function getStoryblokData(
           config as DatasourceEntriesConfig
         )
 
+      // Complex handlers with business logic - keep for now
       case "tagsFromDatasource":
         return handleTagsFromDatasource(getStoryblokData, config)
 
@@ -130,6 +105,17 @@ export async function getStoryblokData(
       error: errorMessage,
     }
   }
+}
+
+/** Export the initialized storyblokApi for components transitioning to direct API calls */
+export function getInitializedStoryblokApi() {
+  const api = getStoryblokApi()
+  if (!api) {
+    throw new Error(
+      "Storyblok API not initialized. Ensure getStoryblokData has been called first."
+    )
+  }
+  return api
 }
 
 /** Gets all posts from the blog with their tags, only returns actual blog posts (page_post component) that have tags */

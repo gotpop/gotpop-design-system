@@ -1,15 +1,11 @@
 import "server-only"
 
-import type {
-  ConfigStoryblok,
-  FooterDefaultStoryblok,
-  HeaderDefaultStoryblok,
-} from "@gotpop/system"
+import type { ConfigStoryblok } from "@gotpop/system"
 import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface PageBlok {
   header?: string
@@ -41,19 +37,46 @@ export function withPageData<T extends PageBlok>(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const { data: headerData } = await getStoryblokData<HeaderDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: headerUuid }
-    )
+    const storyblokApi = getInitializedStoryblokApi()
 
-    const { data: footerData } = await getStoryblokData<FooterDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: footerUuid }
-    )
+    let headerResponse = null
+    let footerResponse = null
 
-    if (!headerData?.content) {
+    // Fetch header and footer by UUID from blok data
+    try {
+      if (headerUuid) {
+        headerResponse = await storyblokApi.get("cdn/stories", {
+          version: "published",
+          by_uuids: headerUuid,
+        })
+      }
+    } catch (error) {
+      console.warn(
+        `[withPageData] Failed to fetch header with UUID: ${headerUuid}`,
+        error
+      )
+    }
+
+    try {
+      if (footerUuid) {
+        footerResponse = await storyblokApi.get("cdn/stories", {
+          version: "published",
+          by_uuids: footerUuid,
+        })
+      }
+    } catch (error) {
+      console.warn(
+        `[withPageData] Failed to fetch footer with UUID: ${footerUuid}`,
+        error
+      )
+    }
+
+    const headerData = headerResponse?.data?.stories?.[0]
+    const footerData = footerResponse?.data?.stories?.[0]
+
+    if (headerUuid && !headerData?.content) {
       console.error(
-        `[withPageData] Missing headerData.content for uuid: ${headerUuid}`,
+        `[withPageData] Missing headerData.content for UUID: ${headerUuid}`,
         JSON.stringify(headerData, null, 2)
       )
     }
@@ -62,9 +85,9 @@ export function withPageData<T extends PageBlok>(
       <StoryblokServerComponent blok={headerData.content} config={config} />
     ) : null
 
-    if (!footerData?.content) {
+    if (footerUuid && !footerData?.content) {
       console.error(
-        `[withPageData] Missing footerData.content for uuid: ${footerUuid}`,
+        `[withPageData] Missing footerData.content for UUID: ${footerUuid}`,
         JSON.stringify(footerData, null, 2)
       )
     }

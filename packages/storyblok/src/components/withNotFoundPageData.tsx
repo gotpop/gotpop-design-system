@@ -1,16 +1,11 @@
 import "server-only"
 
-import type {
-  ConfigStoryblok,
-  FooterDefaultStoryblok,
-  HeaderDefaultStoryblok,
-  NotFoundStoryblok,
-} from "@gotpop/system"
+import type { ConfigStoryblok, NotFoundStoryblok } from "@gotpop/system"
 import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithNotFoundPageDataProps {
   header: ReactNode
@@ -38,23 +33,52 @@ export function withNotFoundPageData(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const { data: headerData } = await getStoryblokData<HeaderDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: headerUuid }
-    )
+    const storyblokApi = getInitializedStoryblokApi()
 
-    const { data: footerData } = await getStoryblokData<FooterDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: footerUuid }
-    )
+    let headerResponse = null
+    let footerResponse = null
 
-    const header = (
-      <StoryblokServerComponent blok={headerData.content} config={config} />
-    )
+    try {
+      if (headerUuid) {
+        headerResponse = await storyblokApi.get("cdn/stories", {
+          version: "published",
+          by_uuids: headerUuid,
+        })
+      }
+    } catch (error) {
+      console.warn(
+        `[withNotFoundPageData] Failed to fetch header with UUID: ${headerUuid}`,
+        error
+      )
+    }
 
-    const footer = (
-      <StoryblokServerComponent blok={footerData.content} config={config} />
-    )
+    try {
+      if (footerUuid) {
+        footerResponse = await storyblokApi.get("cdn/stories", {
+          version: "published",
+          by_uuids: footerUuid,
+        })
+      }
+    } catch (error) {
+      console.warn(
+        `[withNotFoundPageData] Failed to fetch footer with UUID: ${footerUuid}`,
+        error
+      )
+    }
+
+    const header = headerResponse?.data?.stories?.[0]?.content ? (
+      <StoryblokServerComponent
+        blok={headerResponse.data.stories[0].content}
+        config={config}
+      />
+    ) : null
+
+    const footer = footerResponse?.data?.stories?.[0]?.content ? (
+      <StoryblokServerComponent
+        blok={footerResponse.data.stories[0].content}
+        config={config}
+      />
+    ) : null
 
     const blocks = blok.body?.map((nestedBlok: SbBlokData) => (
       <StoryblokServerComponent

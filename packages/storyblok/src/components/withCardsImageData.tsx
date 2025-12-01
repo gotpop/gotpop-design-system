@@ -10,7 +10,7 @@ import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithCardsImageDataProps {
   blok: CardsStoryblok
@@ -43,15 +43,10 @@ export function withCardsImageData(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const tagsResult = await getStoryblokData("tagsFromDatasource")
-    // const postsResulttest = await getStoryblokData("allPostsWithTags")
+    const storyblokApi = getInitializedStoryblokApi()
+    const tagsResult = await storyblokApi.get("cdn/datasources/tags")
 
-    // console.log(
-    //   "[withCardsImageData] postsResulttest:",
-    //   JSON.stringify(postsResulttest, null, 2)
-    // )
-
-    const postsStoriesResult = await getStoryblokData("stories", {
+    const postsStoriesResult = await storyblokApi.get("cdn/stories", {
       starts_with: `portfolio`,
       version: "published",
       excluding_fields: "body",
@@ -67,7 +62,7 @@ export function withCardsImageData(
       JSON.stringify(postsStoriesResult, null, 2)
     )
 
-    const postsDataRaw = postsStoriesResult.data
+    const postsDataRaw = postsStoriesResult.data?.stories
     const posts = Array.isArray(postsDataRaw)
       ? // biome-ignore lint/suspicious/noExplicitAny: temp
         (postsDataRaw as any[]).map((story) => ({
@@ -78,7 +73,8 @@ export function withCardsImageData(
           content: story.content,
         }))
       : []
-    const availableTags = (tagsResult.data as TagDatasourceEntry[]) || []
+    const availableTags =
+      (tagsResult.data?.datasource_entries as TagDatasourceEntry[]) || []
 
     const blocks = posts.map((post, idx) => (
       <StoryblokServerComponent

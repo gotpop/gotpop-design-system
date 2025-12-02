@@ -16,11 +16,13 @@ interface WithFormBuilderDataProps {
   blok: any
   content: ReactNode
   config: ConfigStoryblok | null
+  onSubmit?: (formData: FormData) => Promise<void>
 }
 
 /** Higher-Order Component that renders form input components for the FormBuilder */
 export function withFormBuilderData(
-  ViewComponent: React.ComponentType<WithFormBuilderDataProps>
+  ViewComponent: React.ComponentType<WithFormBuilderDataProps>,
+  submitAction?: (formData: FormData) => Promise<void>
 ) {
   return async ({
     blok,
@@ -42,6 +44,13 @@ export function withFormBuilderData(
       />
     ))
 
-    return <ViewComponent blok={blok} content={content} config={config} />
+    return (
+      <ViewComponent
+        blok={blok}
+        content={content}
+        config={config}
+        onSubmit={submitAction}
+      />
+    )
   }
 }

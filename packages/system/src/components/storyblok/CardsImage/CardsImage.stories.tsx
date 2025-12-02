@@ -10,14 +10,14 @@ import {
 } from "./CardsImage.mocks"
 
 const meta: Meta<typeof CardsImage> = {
-  title: "Storyblok/Cards",
+  title: "Storyblok/CardsImage",
   component: CardsImage,
   parameters: {
     layout: "fullscreen",
     docs: {
       description: {
         component:
-          "A cards container component that displays a grid of blog posts with optional client-side filtering.",
+          "A cards container component that displays a grid of blog posts with images and optional client-side filtering.",
       },
     },
   },

@@ -42,15 +42,16 @@ export function withCardsData(
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const prefix = config?.root_name_space 
 
     const storyblokApi = getInitializedStoryblokApi()
     const tagsResult = await storyblokApi.get("cdn/datasources/tags")
 
     const postsStoriesResult = await storyblokApi.get("cdn/stories", {
-      starts_with: `blog`,
+      starts_with: prefix,
       version: "published",
       is_startpage: false,
-      // excluding_slugs: "*/not-found,*/config",
+      excluding_fields: "body",
       filter_query: {
         component: {
           in: "page_post",
@@ -60,8 +61,8 @@ export function withCardsData(
 
     const postsDataRaw = postsStoriesResult.data?.stories
     const posts = Array.isArray(postsDataRaw)
-      ? // biome-ignore lint/suspicious/noExplicitAny: temp
-        (postsDataRaw as any[]).map((story) => ({
+      ? 
+        postsDataRaw.map((story) => ({
           uuid: story.uuid,
           full_slug: story.full_slug,
           name: story.name,
@@ -70,8 +71,7 @@ export function withCardsData(
         }))
       : []
 
-    const availableTags =
-      (tagsResult.data?.datasource_entries as TagDatasourceEntry[]) || []
+    const availableTags = tagsResult.data?.datasource_entries || []
 
     const blocks = posts.map((post) => (
       <StoryblokServerComponent

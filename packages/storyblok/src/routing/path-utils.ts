@@ -27,5 +27,6 @@ export function extractTagSlug(slug?: string[]): string | null {
   if (!slug || slug.length !== 2 || slug[0] !== "posts") {
     return null
   }
+
   return slug[1]
 }

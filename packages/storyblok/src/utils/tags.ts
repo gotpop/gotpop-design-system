@@ -57,6 +57,7 @@ export async function getTagFromSlug(tagSlug: string): Promise<string | null> {
   const response = await storyblokApi.get("cdn/datasource_entries", {
     datasource: "tags",
   })
+
   const tagsList = response.data?.datasource_entries as TagDatasourceEntry[]
   const tag = tagsList.find(
     (tag: TagDatasourceEntry) => normalizeTagSlug(tag.value) === tagSlug

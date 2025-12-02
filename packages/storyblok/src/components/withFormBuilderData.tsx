@@ -31,9 +31,10 @@ export function withFormBuilderData(
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const { inputs } = blok
 
     // Render input blocks
-    const content = blok.inputs?.map((inputBlok) => (
+    const content = inputs?.map((inputBlok) => (
       <StoryblokServerComponent
         blok={inputBlok}
         key={inputBlok._uid}

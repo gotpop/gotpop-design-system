@@ -39,58 +39,34 @@ export function withPageData<T extends PageBlok>(
 
     const storyblokApi = getInitializedStoryblokApi()
 
-    let headerResponse = null
-    let footerResponse = null
+    const fetchHeader = async () => {
+      if (!headerUuid) return null
 
-    // Fetch header and footer by UUID from blok data
-    try {
-      if (headerUuid) {
-        headerResponse = await storyblokApi.get("cdn/stories", {
-          version: "published",
-          by_uuids: headerUuid,
-        })
-      }
-    } catch (error) {
-      console.warn(
-        `[withPageData] Failed to fetch header with UUID: ${headerUuid}`,
-        error
-      )
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: headerUuid,
+      })
     }
 
-    try {
-      if (footerUuid) {
-        footerResponse = await storyblokApi.get("cdn/stories", {
-          version: "published",
-          by_uuids: footerUuid,
-        })
-      }
-    } catch (error) {
-      console.warn(
-        `[withPageData] Failed to fetch footer with UUID: ${footerUuid}`,
-        error
-      )
+    const fetchFooter = async () => {
+      if (!footerUuid) return null
+
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: footerUuid,
+      })
     }
+
+    const headerResponse = await fetchHeader()
+    const footerResponse = await fetchFooter()
 
     const headerData = headerResponse?.data?.stories?.[0]
     const footerData = footerResponse?.data?.stories?.[0]
-
-    if (headerUuid && !headerData?.content) {
-      console.error(
-        `[withPageData] Missing headerData.content for UUID: ${headerUuid}`,
-        JSON.stringify(headerData, null, 2)
-      )
-    }
 
     const header = headerData?.content ? (
       <StoryblokServerComponent blok={headerData.content} config={config} />
     ) : null
 
-    if (footerUuid && !footerData?.content) {
-      console.error(
-        `[withPageData] Missing footerData.content for UUID: ${footerUuid}`,
-        JSON.stringify(footerData, null, 2)
-      )
-    }
     const footer = footerData?.content ? (
       <StoryblokServerComponent blok={footerData.content} config={config} />
     ) : null

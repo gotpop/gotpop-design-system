@@ -29,8 +29,9 @@ export function withNavData<T extends NavBlok>(
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const { nav_items: navItems } = blok
 
-    const blocks = blok.nav_items?.map((nestedBlok) => (
+    const blocks = navItems?.map((nestedBlok) => (
       <StoryblokServerComponent
         blok={nestedBlok}
         key={nestedBlok._uid}

@@ -6,7 +6,6 @@ import type {
   PostProps,
   TagDatasourceEntry,
 } from "@gotpop/system"
-import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
@@ -18,15 +17,6 @@ interface WithCardsImageDataProps {
   posts: PostProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
-}
-
-/** Transforms PostProps data to SbBlokData format for StoryblokServerComponent */
-function transformPostToBlok(post: PostProps): SbBlokData {
-  return {
-    ...post,
-    component: "card_image",
-    _uid: post.uuid,
-  } as SbBlokData
 }
 
 /** Higher-Order Component that fetches posts and tags data for the Cards component */
@@ -61,24 +51,23 @@ export function withCardsImageData(
 
     const postsDataRaw = postsStoriesResult.data?.stories
     const posts = Array.isArray(postsDataRaw)
-      ? 
-        postsDataRaw.map((story) => ({
-          uuid: story.uuid,
-          full_slug: story.full_slug,
-          name: story.name,
-          published_at: story.published_at,
-          content: story.content,
-        }))
+      ? postsDataRaw.map(
+          ({ uuid, content, full_slug, name, published_at }) => ({
+            _uid: uuid,
+            component: "card_image",
+            content,
+            full_slug,
+            name,
+            published_at,
+            uuid,
+          })
+        )
       : []
 
     const availableTags = tagsResult.data?.datasource_entries || []
 
-    const blocks = posts.map((post, idx) => (
-      <StoryblokServerComponent
-        key={post.uuid || idx}
-        blok={transformPostToBlok(post)}
-        config={config}
-      />
+    const blocks = posts.map((post) => (
+      <StoryblokServerComponent key={post._uid} blok={post} config={config} />
     ))
 
     return (

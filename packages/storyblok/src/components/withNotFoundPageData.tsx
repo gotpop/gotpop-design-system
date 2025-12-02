@@ -28,59 +28,55 @@ export function withNotFoundPageData(
     config?: ConfigStoryblok | null
     availableStories?: string[]
   }) => {
-    const { header: headerUuid = "", footer: footerUuid = "" } = blok
+    const { header: headerUuid = "", footer: footerUuid = "", body } = blok
 
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
     const storyblokApi = getInitializedStoryblokApi()
 
-    let headerResponse = null
-    let footerResponse = null
-
-    try {
-      if (headerUuid) {
-        headerResponse = await storyblokApi.get("cdn/stories", {
-          version: "published",
-          by_uuids: headerUuid,
-        })
-      }
-    } catch (error) {
-      console.warn(
-        `[withNotFoundPageData] Failed to fetch header with UUID: ${headerUuid}`,
-        error
-      )
+    const fetchHeader = async () => {
+      if (!headerUuid) return null
+      
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: headerUuid,
+      })
     }
 
-    try {
-      if (footerUuid) {
-        footerResponse = await storyblokApi.get("cdn/stories", {
-          version: "published",
-          by_uuids: footerUuid,
-        })
-      }
-    } catch (error) {
-      console.warn(
-        `[withNotFoundPageData] Failed to fetch footer with UUID: ${footerUuid}`,
-        error
-      )
+    const fetchFooter = async () => {
+      if (!footerUuid) return null
+
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: footerUuid,
+      })
     }
 
-    const header = headerResponse?.data?.stories?.[0]?.content ? (
+    const headerResponse = await fetchHeader()
+    const footerResponse = await fetchFooter()
+
+    const headerStory = headerResponse?.data?.stories?.[0]
+    const headerContent = headerStory?.content
+
+    const header = headerContent ? (
       <StoryblokServerComponent
-        blok={headerResponse.data.stories[0].content}
+        blok={headerContent}
         config={config}
       />
     ) : null
 
-    const footer = footerResponse?.data?.stories?.[0]?.content ? (
+    const footerStory = footerResponse?.data?.stories?.[0]
+    const footerContent = footerStory?.content
+
+    const footer = footerContent ? (
       <StoryblokServerComponent
-        blok={footerResponse.data.stories[0].content}
+        blok={footerContent}
         config={config}
       />
     ) : null
 
-    const blocks = blok.body?.map((nestedBlok: SbBlokData) => (
+    const blocks = body?.map((nestedBlok: SbBlokData) => (
       <StoryblokServerComponent
         blok={nestedBlok}
         key={nestedBlok._uid}

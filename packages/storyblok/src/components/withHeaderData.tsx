@@ -25,6 +25,7 @@ export function withHeaderData(
     blok: HeaderDefaultStoryblok
     config?: ConfigStoryblok | null
   }) => {
+    // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
     const { nav, logo, popover_select: popoverSelect } = blok
 

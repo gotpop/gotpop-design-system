@@ -14,7 +14,7 @@ interface WithHeaderDataProps {
   popover: ReactNode
 }
 
-/** Higher-Order Component that renders nav logo and popover components for the Header */
+/** Higher-Order Component that renders nav, logo & popover components for the Header */
 export function withHeaderData(
   ViewComponent: React.ComponentType<WithHeaderDataProps>
 ) {
@@ -26,35 +26,34 @@ export function withHeaderData(
     config?: ConfigStoryblok | null
   }) => {
     const config = providedConfig ?? (await getConfig())
+    const { nav, logo, popover_select: popoverSelect } = blok
 
-    const nav = blok.nav?.[0] ? (
-      <StoryblokServerComponent blok={blok.nav[0]} config={config} />
+    const navComponent = nav?.[0] ? (
+      <StoryblokServerComponent blok={nav[0]} config={config} />
     ) : null
 
-    const logo = blok.logo?.[0] ? (
-      <StoryblokServerComponent blok={blok.logo[0]} config={config} />
+    const logoComponent = logo?.[0] ? (
+      <StoryblokServerComponent blok={logo[0]} config={config} />
     ) : null
 
     const storyblokApi = getInitializedStoryblokApi()
 
-    let popoverResponse = null
-    if (blok.popover_select) {
-      try {
-        popoverResponse = await storyblokApi.get("cdn/stories", {
-          version: "published",
-          by_uuids: blok.popover_select,
-        })
-      } catch (error) {
-        console.warn(
-          `[withHeaderData] Failed to fetch popover with UUID: ${blok.popover_select}`,
-          error
-        )
-      }
+    const fetchPopover = async () => {
+      if (!popoverSelect) return null
+      
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: popoverSelect,
+      })
     }
 
-    const popover = popoverResponse?.data?.stories?.[0]?.content ? (
+    const popoverResult = await fetchPopover()
+    const story = popoverResult?.data?.stories?.[0]
+    const popoverContent = story?.content
+
+    const popover = popoverContent ? (
       <StoryblokServerComponent
-        blok={popoverResponse.data.stories[0].content}
+        blok={popoverContent}
         config={config}
       />
     ) : null
@@ -62,8 +61,8 @@ export function withHeaderData(
     return (
       <ViewComponent
         blok={blok}
-        nav={nav}
-        logo={logo}
+        nav={navComponent}
+        logo={logoComponent}
         popover={popover}
         config={config}
       />

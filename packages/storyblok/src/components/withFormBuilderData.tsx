@@ -11,18 +11,24 @@ interface FormBuilderBlok {
   [key: string]: unknown
 }
 
+interface FormState {
+  errors: Record<string, string[]>
+  message: string
+  success: boolean
+}
+
 interface WithFormBuilderDataProps {
   // biome-ignore lint/suspicious/noExplicitAny: Replace with proper type once forms are full integrated
   blok: any
   content: ReactNode
   config: ConfigStoryblok | null
-  onSubmit?: (formData: FormData) => Promise<void>
+  onSubmit?: (formData: FormData) => Promise<FormState>
 }
 
 /** Higher-Order Component that renders form input components for the FormBuilder */
 export function withFormBuilderData(
   ViewComponent: React.ComponentType<WithFormBuilderDataProps>,
-  submitAction?: (formData: FormData) => Promise<void>
+  submitAction?: (formData: FormData) => Promise<FormState>
 ) {
   return async ({
     blok,

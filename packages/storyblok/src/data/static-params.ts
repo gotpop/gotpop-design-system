@@ -16,42 +16,47 @@ export async function getStaticParams(): Promise<{ slug: string[] }[]> {
   const storyblokApi = getInitializedStoryblokApi()
 
   const excluded = [
-    "header",
-    "footer", 
-    "site-config",
     "config",
+    "footer",
     "global",
+    "header",
+    "home",
     "not-found",
-    "home", 
+    "site-config",
   ]
 
-  const excludingSlugs = excluded
-    .map(slug => `${prefix}/${slug}`)
-    .join(",")
+  const excludingSlugs = excluded.map((slug) => `${prefix}/${slug}`).join(",")
 
   const allStoriesResponse = await storyblokApi.get("cdn/stories", {
     version: "published",
     starts_with: `${prefix}/`,
     excluding_slugs: excludingSlugs,
-    excluding_fields: "content", 
+    excluding_fields: "content",
   })
 
   const allStories = allStoriesResponse.data
     ?.stories as StoryblokStoryResponse[]
 
+  const createSlugParam = (story: StoryblokStoryResponse) => {
+    const { full_slug } = story
+
+    // Remove prefix from full_slug "blog/about" → "about"
+    const pathWithoutPrefix = full_slug.startsWith(`${prefix}/`)
+      ? full_slug.slice(prefix.length + 1)
+      : full_slug
+
+    // Ensure path starts with "/" and split into segments
+    const normalizedPath = pathWithoutPrefix.startsWith("/")
+      ? pathWithoutPrefix
+      : `/${pathWithoutPrefix}`
+
+    const slug = normalizedPath.slice(1).split("/")
+
+    return { slug }
+  }
+
   return [
     { slug: [] }, // Home page route
-    ...allStories.map((story: StoryblokStoryResponse) => {
-      let path = story.full_slug
-
-      if (path.startsWith(`${prefix}/`)) {
-        path = path.slice(prefix.length + 1)
-      }
-
-      path = path.startsWith("/") ? path : `/${path}`
-      const slug = path.slice(1).split("/")
-
-      return { slug }
-    })
+    ...allStories.map(createSlugParam),
   ]
 }

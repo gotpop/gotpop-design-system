@@ -5,9 +5,9 @@ import type {
   FormBuilderStoryblok,
 } from "@/types/storyblok-components"
 import "./FormBuilder.css"
-// import { useActionState } from "react"
+import { useActionState } from "react"
 
-import { useFormState } from "react-dom"
+// import { useFormState } from "react-dom"
 
 interface FormState {
   errors: Record<string, string[]>
@@ -31,8 +31,8 @@ export function FormBuilder({ content, onSubmit }: FormBuilderProps) {
     return await onSubmit(formData)
   }
 
-  // const [state, formAction] = useActionState(handleSubmit, initialState)
-  const [state, formAction] = useFormState(handleSubmit, initialState)
+  const [state, formAction] = useActionState(handleSubmit, initialState)
+  // const [state, formAction] = useFormState(handleSubmit, initialState)
 
   return (
     <form className="form-builder" action={formAction}>

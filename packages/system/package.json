@@ -42,12 +42,7 @@
       "default": "./dist/lib/*.js"
     }
   },
-  "files": [
-    "dist/**/*",
-    "src/**/*",
-    "package.json",
-    "README.md"
-  ],
+  "files": ["dist/**/*", "src/**/*", "package.json", "README.md"],
   "repository": {
     "type": "git",
     "url": "https://github.com/gotpop/system.git",

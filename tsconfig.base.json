@@ -31,6 +31,6 @@
     "forceConsistentCasingInFileNames": true,
 
     // Node.js types
-    "types": ["node"]
+    "types": ["node", "react", "react-dom"]
   }
 }

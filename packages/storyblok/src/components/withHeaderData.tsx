@@ -4,7 +4,7 @@ import type { ConfigStoryblok, HeaderDefaultStoryblok } from "@gotpop/system"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithHeaderDataProps {
   blok: HeaderDefaultStoryblok
@@ -14,7 +14,7 @@ interface WithHeaderDataProps {
   popover: ReactNode
 }
 
-/** Higher-Order Component that renders nav logo and popover components for the Header */
+/** Higher-Order Component that renders nav, logo & popover components for the Header */
 export function withHeaderData(
   ViewComponent: React.ComponentType<WithHeaderDataProps>
 ) {
@@ -25,29 +25,45 @@ export function withHeaderData(
     blok: HeaderDefaultStoryblok
     config?: ConfigStoryblok | null
   }) => {
+    // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const { nav, logo, popover_select: popoverSelect } = blok
 
-    const nav = blok.nav?.[0] ? (
-      <StoryblokServerComponent blok={blok.nav[0]} config={config} />
+    const navComponent = nav?.[0] ? (
+      <StoryblokServerComponent blok={nav[0]} config={config} />
     ) : null
 
-    const logo = blok.logo?.[0] ? (
-      <StoryblokServerComponent blok={blok.logo[0]} config={config} />
+    const logoComponent = logo?.[0] ? (
+      <StoryblokServerComponent blok={logo[0]} config={config} />
     ) : null
 
-    const { data: popoverData } = blok.popover_select
-      ? await getStoryblokData("storyByUuid", { uuid: blok.popover_select })
-      : { data: null }
+    const storyblokApi = getInitializedStoryblokApi()
 
-    const popover = popoverData?.content ? (
-      <StoryblokServerComponent blok={popoverData.content} config={config} />
+    const fetchPopover = async () => {
+      if (!popoverSelect) return null
+      
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: popoverSelect,
+      })
+    }
+
+    const popoverResult = await fetchPopover()
+    const story = popoverResult?.data?.stories?.[0]
+    const popoverContent = story?.content
+
+    const popover = popoverContent ? (
+      <StoryblokServerComponent
+        blok={popoverContent}
+        config={config}
+      />
     ) : null
 
     return (
       <ViewComponent
         blok={blok}
-        nav={nav}
-        logo={logo}
+        nav={navComponent}
+        logo={logoComponent}
         popover={popover}
         config={config}
       />

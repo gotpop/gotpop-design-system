@@ -5,12 +5,12 @@ import { getPrefix } from "./prefix-utils"
 
 /** Global stories that should be excluded from static generation */
 const EXCLUDED_STORIES = new Set([
-  "header",
-  "footer",
-  "site-config",
   "config",
+  "footer",
   "global",
+  "header",
   "not-found",
+  "site-config",
 ])
 
 /** Determines if a story should be included in static generation */
@@ -36,5 +36,6 @@ export function shouldIncludeStory(
 /** Gets the starts_with parameter for Storyblok API calls */
 export function getStartsWithPrefix(config: ConfigStoryblok): string {
   const prefix = getPrefix(config)
+
   return `${prefix}/`
 }

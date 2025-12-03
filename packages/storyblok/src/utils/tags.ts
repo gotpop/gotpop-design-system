@@ -1,7 +1,7 @@
 import "server-only"
 
 import type { TagDatasourceEntry } from "@gotpop/system"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 /** Hardcoded tags that are not included in the API call but should be available for filtering */
 export const HARDCODED_TAGS: TagDatasourceEntry[] = []
@@ -40,8 +40,11 @@ export async function isValidTag(tagSlug: string): Promise<boolean> {
     return true
   }
 
-  const { data: tags } = await getStoryblokData("tagsFromDatasource")
-  const tagsList = tags as TagDatasourceEntry[]
+  const storyblokApi = getInitializedStoryblokApi()
+  const response = await storyblokApi.get("cdn/datasource_entries", {
+    datasource: "tags",
+  })
+  const tagsList = response.data?.datasource_entries as TagDatasourceEntry[]
 
   return tagsList.some(
     (tag: TagDatasourceEntry) => normalizeTagSlug(tag.value) === tagSlug
@@ -50,8 +53,12 @@ export async function isValidTag(tagSlug: string): Promise<boolean> {
 
 /** Retrieves the original tag value from a URL slug */
 export async function getTagFromSlug(tagSlug: string): Promise<string | null> {
-  const { data: tags } = await getStoryblokData("tagsFromDatasource")
-  const tagsList = tags as TagDatasourceEntry[]
+  const storyblokApi = getInitializedStoryblokApi()
+  const response = await storyblokApi.get("cdn/datasource_entries", {
+    datasource: "tags",
+  })
+
+  const tagsList = response.data?.datasource_entries as TagDatasourceEntry[]
   const tag = tagsList.find(
     (tag: TagDatasourceEntry) => normalizeTagSlug(tag.value) === tagSlug
   )

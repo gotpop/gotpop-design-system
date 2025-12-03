@@ -1,10 +1,11 @@
 "use client"
 
 import { startTransition, ViewTransition } from "react"
-import type { ConfigStoryblok } from "../../../index"
+import { CardImage, type ConfigStoryblok } from "../../../index"
 import { CustomElement } from "../../ui/CustomElement"
 import type { PostProps } from "../Card/Card"
 import { Card } from "../Card/Card"
+import type { PostImageProps } from "../CardImage"
 import { CardsControl } from "../CardsControl/CardsControl"
 import { useCardsFilter } from "./use-cards-filter"
 
@@ -22,7 +23,7 @@ export interface TagDatasourceEntry {
 }
 
 interface CardsFilterClientProps {
-  posts: PostProps[]
+  posts: PostProps[] | PostImageProps[]
   availableTags: TagDatasourceEntry[]
   config?: ConfigStoryblok | null
 }
@@ -52,7 +53,14 @@ export function CardsFilterClient({
     })
   }
 
-  // Transform tags for CardsControl options format
+  const hasPagePostImage = posts.some((post) => {
+    const component = post?.content?.component
+
+    if (component === "page_post") return false
+
+    return component === "page_post_image"
+  })
+
   const tagOptions = [
     { value: "all", label: "All Posts" },
     ...availableTags.map((tag) => ({
@@ -63,9 +71,13 @@ export function CardsFilterClient({
 
   const output =
     filteredAndSortedPosts.length > 0 &&
-    filteredAndSortedPosts.map((blok) => (
-      <Card key={blok.uuid} blok={blok} config={config} />
-    ))
+    filteredAndSortedPosts.map((blok) =>
+      hasPagePostImage ? (
+        <CardImage key={blok.uuid} blok={blok} config={config} />
+      ) : (
+        <Card key={blok.uuid} blok={blok} config={config} />
+      )
+    )
 
   return (
     <div className="filters-with-output">

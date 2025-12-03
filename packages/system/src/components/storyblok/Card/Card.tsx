@@ -23,7 +23,7 @@ export interface CardProps {
 export function Card({ blok, config }: CardProps) {
   const { full_slug, name, published_at, content } = blok
   const {
-    Heading,
+    heading,
     description,
     published_date,
     tags = [],
@@ -41,7 +41,7 @@ export function Card({ blok, config }: CardProps) {
   const dateToUse = published_date || published_at
   const formattedDate = formatDate(dateToUse)
 
-  const title = Heading || name || "Untitled"
+  const title = heading || name || "Untitled"
 
   const tagList = tags.map((tag) => (
     <span key={tag} className="tag">

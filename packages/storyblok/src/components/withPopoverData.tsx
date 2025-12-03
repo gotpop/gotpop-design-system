@@ -30,9 +30,9 @@ export function withPopoverData(
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const { content } = blok
 
-    // Render nested content blocks from the popover blok (like withNavData does with nav_items)
-    const content = blok.content?.map((contentBlok: SbBlokData) => (
+    const contentComponents = content?.map((contentBlok: SbBlokData) => (
       <StoryblokServerComponent
         blok={contentBlok}
         key={contentBlok._uid}
@@ -43,7 +43,7 @@ export function withPopoverData(
     return (
       <ViewComponent
         blok={blok}
-        content={content}
+        content={contentComponents}
         config={config}
       />
     )

@@ -1,15 +1,11 @@
 import "server-only"
 
-import type {
-  ConfigStoryblok,
-  FooterDefaultStoryblok,
-  HeaderDefaultStoryblok,
-} from "@gotpop/system"
+import type { ConfigStoryblok } from "@gotpop/system"
 import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface PageBlok {
   header?: string
@@ -41,23 +37,39 @@ export function withPageData<T extends PageBlok>(
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
-    const { data: headerData } = await getStoryblokData<HeaderDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: headerUuid }
-    )
+    const storyblokApi = getInitializedStoryblokApi()
 
-    const { data: footerData } = await getStoryblokData<FooterDefaultStoryblok>(
-      "storyByUuid",
-      { uuid: footerUuid }
-    )
+    const fetchHeader = async () => {
+      if (!headerUuid) return null
 
-    const header = (
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: headerUuid,
+      })
+    }
+
+    const fetchFooter = async () => {
+      if (!footerUuid) return null
+
+      return await storyblokApi.get("cdn/stories", {
+        version: "published",
+        by_uuids: footerUuid,
+      })
+    }
+
+    const headerResponse = await fetchHeader()
+    const footerResponse = await fetchFooter()
+
+    const headerData = headerResponse?.data?.stories?.[0]
+    const footerData = footerResponse?.data?.stories?.[0]
+
+    const header = headerData?.content ? (
       <StoryblokServerComponent blok={headerData.content} config={config} />
-    )
+    ) : null
 
-    const footer = (
+    const footer = footerData?.content ? (
       <StoryblokServerComponent blok={footerData.content} config={config} />
-    )
+    ) : null
 
     const blocks = blok.body?.map((nestedBlok) => (
       <StoryblokServerComponent

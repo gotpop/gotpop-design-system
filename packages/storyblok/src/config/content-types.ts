@@ -27,6 +27,7 @@ export function getContentTypeFullPath(
 ): string {
   const prefix = getPrefix(config)
   const typePath = getContentTypePath(contentType, config)
+  
   return `${prefix}/${typePath}/`
 }
 
@@ -37,5 +38,6 @@ export function isContentType(
   config: ConfigStoryblok
 ): boolean {
   const expectedPath = getContentTypeFullPath(contentType, config)
+
   return fullSlug.startsWith(expectedPath)
 }

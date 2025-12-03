@@ -6,11 +6,10 @@ import type {
   PostProps,
   TagDatasourceEntry,
 } from "@gotpop/system"
-import type { SbBlokData } from "@storyblok/react/rsc"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
 import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
-import { getStoryblokData } from "../data/get-storyblok-data"
+import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithCardsDataProps {
   blok: CardsStoryblok
@@ -18,15 +17,6 @@ interface WithCardsDataProps {
   posts: PostProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
-}
-
-/** Transforms PostProps data to SbBlokData format for StoryblokServerComponent */
-function transformPostToBlok(post: PostProps): SbBlokData {
-  return {
-    ...post,
-    component: "card",
-    _uid: post.uuid,
-  } as SbBlokData
 }
 
 /** Higher-Order Component that fetches posts and tags data for the Cards component */
@@ -42,28 +32,42 @@ export function withCardsData(
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
+    const prefix = config?.root_name_space
 
-    const [postsResult, tagsResult] = await Promise.all([
-      getStoryblokData("allPostsWithTags"),
-      getStoryblokData("tagsFromDatasource"),
-    ])
+    const storyblokApi = getInitializedStoryblokApi()
+    const tagsResult = await storyblokApi.get("cdn/datasources/tags")
 
-    if (postsResult.error || tagsResult.error) {
-      console.error("[withCardsData] Error fetching data:", {
-        postsError: postsResult.error,
-        tagsError: tagsResult.error,
-      })
-    }
+    const postsStoriesResult = await storyblokApi.get("cdn/stories", {
+      starts_with: prefix,
+      version: "published",
+      is_startpage: false,
+      excluding_fields: "body",
+      filter_query: {
+        component: {
+          in: "page_post",
+        },
+      },
+    })
 
-    const posts = (postsResult.data as PostProps[]) || []
-    const availableTags = (tagsResult.data as TagDatasourceEntry[]) || []
+    const postsDataRaw = postsStoriesResult.data?.stories
+    const posts = Array.isArray(postsDataRaw)
+      ? postsDataRaw.map(
+          ({ uuid, content, full_slug, name, published_at }) => ({
+            _uid: uuid,
+            component: "card",
+            content,
+            full_slug,
+            name,
+            published_at,
+            uuid,
+          })
+        )
+      : []
+
+    const availableTags = tagsResult.data?.datasource_entries || []
 
     const blocks = posts.map((post) => (
-      <StoryblokServerComponent
-        key={post.uuid}
-        blok={transformPostToBlok(post)}
-        config={config}
-      />
+      <StoryblokServerComponent key={post._uid} blok={post} config={config} />
     ))
 
     return (

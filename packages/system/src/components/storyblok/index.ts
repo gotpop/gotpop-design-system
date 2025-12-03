@@ -28,8 +28,18 @@ import { RichTextBlock } from "./RichTextBlock"
 import { RichTextCodeBlock } from "./RichTextCodeBlock"
 import { SnippetBlock } from "./SnippetBlock"
 import { Typography } from "./Typography"
+import {FormBuilder} from "./FormBuilder/FormBuilder"
+import {FormInputButtonSubmit } from "./FormInputButtonSubmit"
+import {FormInputText } from "./FormInputText"
+import {FormInputTextArea } from "./FormInputTextArea"
+import { Popover } from "./Popover"
 
 export {
+  FormBuilder,
+  FormInputButtonSubmit,
+  FormInputText,
+  FormInputTextArea,
+  Popover,
   BaselineStatusBlock,
   Card,
   Cards,

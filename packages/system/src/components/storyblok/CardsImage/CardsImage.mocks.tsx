@@ -25,7 +25,7 @@ export const mockTags: TagDatasourceEntry[] = [
   { name: "JavaScript", value: "javascript", id: 5 },
   { name: "Design", value: "design", id: 6 },
   { name: "Performance", value: "performance", id: 7 },
-      { name: "Accessibility", value: "accessibility", id: 8 },
+  { name: "Accessibility", value: "accessibility", id: 8 },
 ]
 
 // Mock post factory function

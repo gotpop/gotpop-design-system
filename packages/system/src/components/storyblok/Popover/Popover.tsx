@@ -15,7 +15,6 @@ interface PopoverProps {
 export function Popover({ blok, content }: PopoverProps) {
   const { heading, subheading } = blok
   return (
-    // biome-ignore lint/correctness/useUniqueElementIds: Popover requires a specific ID for accessibility
     <article popover="auto" id="popover-contact-form" className="popover">
       <CustomElement tag="box-grid">
         <Typography tag="h3" variant="text-xl" shade="dark">

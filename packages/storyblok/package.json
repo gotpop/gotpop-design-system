@@ -1,6 +1,6 @@
 {
   "name": "@gotpop/storyblok",
-  "version": "0.1.77",
+  "version": "0.1.78",
   "description": "Storyblok integration utilities and components for gotpop projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,11 +33,7 @@
       "default": "./dist/utils/index.js"
     }
   },
-  "files": [
-    "dist/**/*",
-    "package.json",
-    "README.md"
-  ],
+  "files": ["dist/**/*", "package.json", "README.md"],
   "repository": {
     "type": "git",
     "url": "https://github.com/gotpop/system.git",
@@ -54,8 +50,8 @@
   },
   "devDependencies": {
     "@gotpop/system": "*",
-    "@types/react": "^19.0.0",
-    "typescript": "^5.7.3"
+    "@types/react": "19.2.2",
+    "typescript": "~5.0.4"
   },
   "peerDependencies": {
     "@gotpop/system": "*",

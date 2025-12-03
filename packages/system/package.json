@@ -1,6 +1,6 @@
 {
   "name": "@gotpop/system",
-  "version": "0.1.205",
+  "version": "0.1.211",
   "description": "React design system components for gotpop",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -42,12 +42,7 @@
       "default": "./dist/lib/*.js"
     }
   },
-  "files": [
-    "dist/**/*",
-    "src/**/*",
-    "package.json",
-    "README.md"
-  ],
+  "files": ["dist/**/*", "src/**/*", "package.json", "README.md"],
   "repository": {
     "type": "git",
     "url": "https://github.com/gotpop/system.git",
@@ -71,6 +66,7 @@
     "@next/font": "^14.2.15",
     "@storyblok/react": "^5.4.18",
     "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-icons": "^5.4.0",
     "server-only": "^0.0.1",
     "storyblok-rich-text-react-renderer": "^3.0.1"
@@ -81,11 +77,11 @@
     "@types/node": "^20.0.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.0.1",
     "next": "16.0.0",
     "prettier": "^3.6.2",
-    "typescript": "^5",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^8.0.1"
+    "typescript": "~5.0.4"
   },
   "peerDependencies": {
     "react": ">=19.0.0"

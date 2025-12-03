@@ -1,4 +1,4 @@
-import type { PagePostImageStoryblok } from "@/types"
+import type { PagePostImageStoryblok } from "../../../types/storyblok-components"
 import { CustomElement } from "../../ui/CustomElement"
 import { PageLayout } from "../PageLayout/PageLayout"
 import { PostHeader } from "../PostHeader/PostHeader"

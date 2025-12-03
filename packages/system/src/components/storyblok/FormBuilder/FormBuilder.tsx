@@ -3,7 +3,7 @@
 import type {
   ConfigStoryblok,
   FormBuilderStoryblok,
-} from "@/types/storyblok-components"
+} from "../../../types/storyblok-components"
 import "./FormBuilder.css"
 import { useActionState } from "react"
 

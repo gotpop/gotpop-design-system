@@ -10,7 +10,7 @@ import { CardsControl } from "./CardsControl"
 import { CardsFilterClient } from "./CardsFilter/CardsFilterClient"
 import { CardsImage } from "./CardsImage"
 import { FooterDefault } from "./FooterDefaultBlock"
-// import {FormBuilder} from "./FormBuilder/FormBuilder"
+import { FormBuilder } from "./FormBuilder/FormBuilder"
 import { FormInputButtonSubmit } from "./FormInputButtonSubmit"
 import { FormInputText } from "./FormInputText"
 import { FormInputTextArea } from "./FormInputTextArea"
@@ -35,7 +35,7 @@ import { SnippetBlock } from "./SnippetBlock"
 import { Typography } from "./Typography"
 
 export {
-  // FormBuilder,
+  FormBuilder,
   FormInputButtonSubmit,
   FormInputText,
   FormInputTextArea,

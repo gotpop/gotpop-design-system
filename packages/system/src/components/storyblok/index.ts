@@ -21,7 +21,6 @@ import { LogoDefault } from "./LogoDefault"
 import { NavDefault } from "./NavDefault"
 import { NavItemDefault } from "./NavItemDefault"
 import { PageDefault } from "./PageDefault"
-import { PageFilter } from "./PageFilter"
 import { PageLayout } from "./PageLayout"
 import { PageNotFound } from "./PageNotFound"
 import { PagePost } from "./PagePost"
@@ -55,7 +54,6 @@ export {
   NavDefault,
   NavItemDefault,
   PageDefault,
-  PageFilter,
   PageLayout,
   PageNotFound,
   PagePost,

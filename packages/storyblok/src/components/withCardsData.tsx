@@ -17,7 +17,7 @@ interface WithCardsDataProps<
 > {
   blok: T
   blocks: ReactNode
-  posts: PostProps[]
+  posts?: PostProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
 }
@@ -35,9 +35,6 @@ export function withCardsData<
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
-
-    console.log("Cards blok:", JSON.stringify(blok.component_select, null, 2))
-
     const componentSelect = blok.component_select || "card"
 
     const storyblokApi = getInitializedStoryblokApi()
@@ -88,7 +85,7 @@ export function withCardsData<
         blocks={blocks}
         availableTags={availableTags}
         config={config}
-        posts={posts}
+        {...(blok.component === "cards_client_filter" ? { posts } : {})}
       />
     )
   }

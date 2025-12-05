@@ -1,8 +1,10 @@
 import "server-only"
 
 import type {
+  CardsClientFilterStoryblok,
   CardsServerStoryblok,
   ConfigStoryblok,
+  PostProps,
   TagDatasourceEntry,
 } from "@gotpop/system"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
@@ -10,22 +12,25 @@ import type { ReactNode } from "react"
 import { getConfig } from "../config/runtime-config"
 import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
-interface WithCardsDataProps {
-  blok: CardsServerStoryblok
+interface WithCardsDataProps<
+  T = CardsServerStoryblok | CardsClientFilterStoryblok,
+> {
+  blok: T
   blocks: ReactNode
+  posts: PostProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
 }
 
 /** Higher-Order Component that fetches posts and tags data for the Cards component */
-export function withCardsData(
-  ViewComponent: React.ComponentType<WithCardsDataProps>
-) {
+export function withCardsData<
+  T extends CardsServerStoryblok | CardsClientFilterStoryblok,
+>(ViewComponent: React.ComponentType<WithCardsDataProps<T>>) {
   return async ({
     blok,
     config: providedConfig,
   }: {
-    blok: CardsServerStoryblok
+    blok: T
     config?: ConfigStoryblok | null
   }) => {
     // Use provided config or fetch from cache
@@ -53,7 +58,7 @@ export function withCardsData(
     const postsDataRaw = postsStoriesResult.data?.stories
 
     const posts = Array.isArray(postsDataRaw)
-      ? postsDataRaw.map(({ uuid, content, full_slug }) => {
+      ? postsDataRaw.map(({ uuid, content, full_slug, name, published_at }) => {
           const metaData = content?.meta_data_page || []
 
           return {
@@ -61,6 +66,8 @@ export function withCardsData(
             component: "card",
             meta_data_page: metaData,
             full_slug,
+            name: name || "",
+            published_at: published_at || "",
           }
         })
       : []

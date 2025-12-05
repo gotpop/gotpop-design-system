@@ -9,6 +9,7 @@ import { Cards } from "./Cards"
 import { CardsControl } from "./CardsControl"
 import { CardsFilterClient } from "./CardsFilter/CardsFilterClient"
 import { CardsImage } from "./CardsImage"
+import { CardsServer } from "./CardsServer"
 import { FooterDefault } from "./FooterDefaultBlock"
 import { FormBuilder } from "./FormBuilder/FormBuilder"
 import { FormInputButtonSubmit } from "./FormInputButtonSubmit"
@@ -42,6 +43,7 @@ export {
   BaselineStatusBlock,
   Card,
   Cards,
+  CardsServer,
   CardImage,
   CardsImage,
   CardsControl,

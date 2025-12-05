@@ -1,9 +1,8 @@
 import "server-only"
 
 import type {
-  CardsStoryblok,
+  CardsServerStoryblok,
   ConfigStoryblok,
-  PostProps,
   TagDatasourceEntry,
 } from "@gotpop/system"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
@@ -12,9 +11,8 @@ import { getConfig } from "../config/runtime-config"
 import { getInitializedStoryblokApi } from "../data/get-storyblok-data"
 
 interface WithCardsDataProps {
-  blok: CardsStoryblok
+  blok: CardsServerStoryblok
   blocks: ReactNode
-  posts: PostProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
 }
@@ -27,41 +25,44 @@ export function withCardsData(
     blok,
     config: providedConfig,
   }: {
-    blok: CardsStoryblok
+    blok: CardsServerStoryblok
     config?: ConfigStoryblok | null
   }) => {
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
-    const prefix = config?.root_name_space
 
     const storyblokApi = getInitializedStoryblokApi()
     const tagsResult = await storyblokApi.get("cdn/datasources/tags")
+    const { target_index: targetIndex } = blok
+
+    const targetStoryResult = await storyblokApi.get(`cdn/stories`, {
+      version: "published",
+      by_uuids: targetIndex,
+      excluding_fields: "body,header,footer,created_at,_uid,component,content",
+    })
+
+    const targetDirectory = targetStoryResult.data.stories[0]?.full_slug || ""
 
     const postsStoriesResult = await storyblokApi.get("cdn/stories", {
-      starts_with: prefix,
+      starts_with: targetDirectory,
       version: "published",
       is_startpage: false,
-      excluding_fields: "body",
-      filter_query: {
-        component: {
-          in: "page_post",
-        },
-      },
+      excluding_fields: "body,header,footer,created_at,_uid,component",
     })
 
     const postsDataRaw = postsStoriesResult.data?.stories
+
     const posts = Array.isArray(postsDataRaw)
-      ? postsDataRaw.map(
-          ({ uuid, content, full_slug, name, published_at }) => ({
+      ? postsDataRaw.map(({ uuid, content, full_slug }) => {
+          const metaData = content?.meta_data_page || []
+
+          return {
             _uid: uuid,
             component: "card",
-            content,
+            meta_data_page: metaData,
             full_slug,
-            name,
-            published_at,
-            uuid,
-          })
-        )
+          }
+        })
       : []
 
     const availableTags = tagsResult.data?.datasource_entries || []
@@ -74,7 +75,6 @@ export function withCardsData(
       <ViewComponent
         blok={blok}
         blocks={blocks}
-        posts={posts}
         availableTags={availableTags}
         config={config}
       />

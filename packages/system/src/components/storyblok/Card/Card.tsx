@@ -1,18 +1,29 @@
 import type {
   ConfigStoryblok,
-  PagePostStoryblok,
+  MetaDatePublishedStoryblok,
+  MetaDescriptionStoryblok,
+  MetaTagsStoryblok,
+  MetaTitleStoryblok,
+  MetaViewTransitionStoryblok,
 } from "../../../types/storyblok-components"
 import { formatDate } from "../../../utils/date-formatter"
 import { CustomElement } from "../../ui/CustomElement"
 import { Typography } from "../Typography/Typography"
 import "./Card.css"
 
+type MetaDataArray = (
+  | MetaTitleStoryblok
+  | MetaDatePublishedStoryblok
+  | MetaDescriptionStoryblok
+  | MetaTagsStoryblok
+  | MetaViewTransitionStoryblok
+)[]
+
 export interface PostProps {
-  uuid: string
   full_slug: string
   name: string
   published_at: string
-  content: PagePostStoryblok
+  meta_data_page?: MetaDataArray
 }
 
 export interface CardProps {
@@ -20,17 +31,29 @@ export interface CardProps {
   config?: ConfigStoryblok | null
 }
 
-export function Card({ blok, config }: CardProps) {
-  const { full_slug, name, published_at, content } = blok
-  const {
-    heading,
-    description,
-    published_date,
-    tags = [],
-    view_transition_name: viewTransitionName,
-  } = content || {}
+const getMeta = (metaData: MetaDataArray | undefined) => {
+  const getValue = <T extends string | string[]>(
+    component: string
+  ): T | undefined =>
+    metaData?.find((item) => item.component === component)?.payload as T
 
-  let linkPath = `/${full_slug}`
+  const title = getValue<string>("meta_title") || ""
+  const date = getValue<string>("meta_date_published") || ""
+  const description = getValue<string>("meta_description") || ""
+  const tags = getValue<string[]>("meta_tags") || []
+  const viewTransitionName = getValue<string>("meta_view_transition") || ""
+
+  return {
+    title,
+    date,
+    description,
+    tags,
+    viewTransitionName,
+  }
+}
+
+const getLinkPath = (fullSlug: string, config?: ConfigStoryblok | null) => {
+  let linkPath = `/${fullSlug}`
 
   const root = config?.root_name_space
 
@@ -38,10 +61,17 @@ export function Card({ blok, config }: CardProps) {
     linkPath = linkPath.slice(root.length + 1)
   }
 
-  const dateToUse = published_date || published_at
-  const formattedDate = formatDate(dateToUse)
+  return linkPath
+}
 
-  const title = heading || name || "Untitled"
+export function Card({ blok, config }: CardProps) {
+  const { full_slug, meta_data_page: metaData } = blok
+
+  const { title, date, description, tags, viewTransitionName } =
+    getMeta(metaData)
+
+  const linkPath = getLinkPath(full_slug, config)
+  const formattedDate = formatDate(date)
 
   const tagList = tags.map((tag) => (
     <span key={tag} className="tag">

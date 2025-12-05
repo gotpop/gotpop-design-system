@@ -73,9 +73,9 @@ export function CardsFilterClient({
     filteredAndSortedPosts.length > 0 &&
     filteredAndSortedPosts.map((blok) =>
       hasPagePostImage ? (
-        <CardImage key={blok.uuid} blok={blok} config={config} />
+        <CardImage key={blok.full_slug} blok={blok} config={config} />
       ) : (
-        <Card key={blok.uuid} blok={blok} config={config} />
+        <Card key={blok.full_slug} blok={blok} config={config} />
       )
     )
 

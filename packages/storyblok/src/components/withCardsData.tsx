@@ -77,6 +77,7 @@ export function withCardsData(
         blocks={blocks}
         availableTags={availableTags}
         config={config}
+        posts={posts}
       />
     )
   }

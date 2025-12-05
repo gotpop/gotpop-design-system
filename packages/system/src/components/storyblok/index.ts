@@ -6,6 +6,7 @@ import { BaselineStatusBlock } from "./BaselineStatusBlock"
 import { Card } from "./Card"
 import { CardImage } from "./CardImage"
 import { Cards } from "./Cards"
+import { CardsClientFilter } from "./CardsClientFilter"
 import { CardsControl } from "./CardsControl"
 import { CardsFilterClient } from "./CardsFilter/CardsFilterClient"
 import { CardsImage } from "./CardsImage"
@@ -35,20 +36,19 @@ import { SnippetBlock } from "./SnippetBlock"
 import { Typography } from "./Typography"
 
 export {
+  BaselineStatusBlock,
+  Card,
+  CardImage,
+  Cards,
+  CardsClientFilter,
+  CardsControl,
+  CardsImage,
+  CardsServer,
+  FooterDefault,
   FormBuilder,
   FormInputButtonSubmit,
   FormInputText,
   FormInputTextArea,
-  Popover,
-  BaselineStatusBlock,
-  Card,
-  Cards,
-  CardsServer,
-  CardImage,
-  CardsImage,
-  CardsControl,
-  CardsFilterClient,
-  FooterDefault,
   HeaderDefault,
   HeroDefault,
   LinkList,
@@ -60,6 +60,7 @@ export {
   PageNotFound,
   PagePost,
   PagePostImage,
+  Popover,
   PostHeader,
   RichText,
   RichTextBlock,

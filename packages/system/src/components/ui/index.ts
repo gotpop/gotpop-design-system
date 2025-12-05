@@ -1,6 +1,5 @@
 export * from "./ButtonToggleMenu"
 export * from "./CardsControl"
-export * from "./CardsFilter"
 export * from "./CustomElement"
 export * from "./GridMaster"
 export * from "./Icon"

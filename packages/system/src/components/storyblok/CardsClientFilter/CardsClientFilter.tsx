@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, startTransition } from "react"
+import { Suspense, startTransition, ViewTransition } from "react"
 import type {
   CardsClientFilterStoryblok,
   ConfigStoryblok,
@@ -95,9 +95,11 @@ export function CardsClientFilter({
             options={SORT_OPTIONS}
           />
         </CustomElement>
-        <output className="grid-cards" aria-live="polite">
-          {output}
-        </output>
+        <ViewTransition update="reorder-list">
+          <output className="grid-cards" aria-live="polite">
+            {output}
+          </output>
+        </ViewTransition>
       </div>
     </Suspense>
   )

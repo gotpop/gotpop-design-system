@@ -38,7 +38,10 @@ export function withCardsData<
     const componentSelect = blok.component_select || "card"
 
     const storyblokApi = getInitializedStoryblokApi()
-    const tagsResult = await storyblokApi.get("cdn/datasources/tags")
+    const tagsResult = await storyblokApi.get("cdn/datasource_entries", {
+      datasource: "tags",
+    })
+
     const { target_index: targetIndex } = blok
 
     const targetStoryResult = await storyblokApi.get(`cdn/stories`, {

@@ -5,7 +5,6 @@ import { CardImage, type ConfigStoryblok } from "../../../index"
 import { CustomElement } from "../../ui/CustomElement"
 import type { PostProps } from "../Card/Card"
 import { Card } from "../Card/Card"
-import type { PostImageProps } from "../CardImage"
 import { CardsControl } from "../CardsControl/CardsControl"
 import { useCardsFilter } from "./use-cards-filter"
 
@@ -23,7 +22,7 @@ export interface TagDatasourceEntry {
 }
 
 interface CardsFilterClientProps {
-  posts: PostProps[] | PostImageProps[]
+  posts: PostProps[]
   availableTags: TagDatasourceEntry[]
   config?: ConfigStoryblok | null
 }
@@ -54,11 +53,12 @@ export function CardsFilterClient({
   }
 
   const hasPagePostImage = posts.some((post) => {
-    const component = post?.content?.component
+    console.log("Post ????????:", JSON.stringify(post, null, 2))
+    const component = post?.component
 
-    if (component === "page_post") return false
+    if (component === "card") return false
 
-    return component === "page_post_image"
+    return component === "card_image"
   })
 
   const tagOptions = [

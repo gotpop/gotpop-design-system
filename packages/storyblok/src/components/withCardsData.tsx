@@ -36,6 +36,10 @@ export function withCardsData<
     // Use provided config or fetch from cache
     const config = providedConfig ?? (await getConfig())
 
+    console.log("Cards blok:", JSON.stringify(blok.component_select, null, 2))
+
+    const componentSelect = blok.component_select || "card"
+
     const storyblokApi = getInitializedStoryblokApi()
     const tagsResult = await storyblokApi.get("cdn/datasources/tags")
     const { target_index: targetIndex } = blok
@@ -63,7 +67,7 @@ export function withCardsData<
 
           return {
             _uid: uuid,
-            component: "card",
+            component: componentSelect,
             meta_data_page: metaData,
             full_slug,
             name: name || "",

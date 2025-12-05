@@ -1,49 +1,33 @@
-import type {
-  ConfigStoryblok,
-  PagePostStoryblok,
-} from "../../../types/storyblok-components"
+import type { ConfigStoryblok } from "../../../types/storyblok-components"
+import { getLinkPath, getMeta } from "../../../utils/card-utils"
 import { formatDate } from "../../../utils/date-formatter"
 import { CustomElement } from "../../ui/CustomElement"
+import type { PostProps } from "../Card"
 import { Typography } from "../Typography/Typography"
 import "./CardImage.css"
-import Image from "next/image"
+// import Image from "next/image"
 
-export interface PostImageProps {
-  uuid: string
-  full_slug: string
-  name: string
-  published_at: string
-  content: PagePostStoryblok
-}
+// export interface PostImageProps {
+//   uuid: string
+//   full_slug: string
+//   name: string
+//   published_at: string
+//   content: PagePostStoryblok
+// }
 
 export interface CardImageProps {
-  blok: PostImageProps
+  blok: PostProps
   config?: ConfigStoryblok | null
 }
 
 export function CardImage({ blok, config }: CardImageProps) {
-  const { full_slug, name, published_at, content } = blok
-  const {
-    heading,
-    description,
-    published_date,
-    image_hero,
-    tags = [],
-    view_transition_name: viewTransitionName,
-  } = content || {}
+  const { full_slug, meta_data_page: metaData } = blok
 
-  let linkPath = `/${full_slug}`
+  const { title, date, description, tags, viewTransitionName } =
+    getMeta(metaData)
 
-  const root = config?.root_name_space
-
-  if (root && linkPath.startsWith(`/${root}/`)) {
-    linkPath = linkPath.slice(root.length + 1)
-  }
-
-  const dateToUse = published_date || published_at
-  const formattedDate = formatDate(dateToUse)
-
-  const title = heading || name || "Untitled"
+  const linkPath = getLinkPath(full_slug, config)
+  const formattedDate = formatDate(date)
 
   const tagList = tags.map((tag) => (
     <span key={tag} className="tag">
@@ -67,7 +51,7 @@ export function CardImage({ blok, config }: CardImageProps) {
           dateTime={formattedDate}
           className="margin-none"
         >
-          {formattedDate} !!!!!
+          {formattedDate}
         </Typography>
         <div className="tags">{tagList}</div>
       </div>
@@ -76,21 +60,6 @@ export function CardImage({ blok, config }: CardImageProps) {
           {title}
         </a>
       </Typography>
-      {image_hero?.filename && (
-        <div
-          className="card-image-hero"
-          style={{ aspectRatio: "640 / 316", width: "100%" }}
-        >
-          <Image
-            src={image_hero.filename}
-            alt={image_hero.alt || title}
-            width={640}
-            height={316}
-            style={{ objectFit: "cover", width: "100%", height: "auto" }}
-            priority={false}
-          />
-        </div>
-      )}
       <Typography tag="p" variant="text-base" shade="charcoal">
         {description}
       </Typography>

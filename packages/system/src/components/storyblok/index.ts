@@ -5,11 +5,9 @@
 import { BaselineStatusBlock } from "./BaselineStatusBlock"
 import { Card } from "./Card"
 import { CardImage } from "./CardImage"
-import { Cards } from "./Cards"
 import { CardsClientFilter } from "./CardsClientFilter"
 import { CardsControl } from "./CardsControl"
 import { CardsFilterClient } from "./CardsFilter/CardsFilterClient"
-import { CardsImage } from "./CardsImage"
 import { CardsServer } from "./CardsServer"
 import { FooterDefault } from "./FooterDefaultBlock"
 import { FormBuilder } from "./FormBuilder/FormBuilder"
@@ -25,8 +23,6 @@ import { NavItemDefault } from "./NavItemDefault"
 import { PageDefault } from "./PageDefault"
 import { PageLayout } from "./PageLayout"
 import { PageNotFound } from "./PageNotFound"
-import { PagePost } from "./PagePost"
-import { PagePostImage } from "./PagePostImage"
 import { Popover } from "./Popover"
 import { PostHeader } from "./PostHeader"
 import { RichText, StoryblokRichText } from "./RichText"
@@ -39,10 +35,9 @@ export {
   BaselineStatusBlock,
   Card,
   CardImage,
-  Cards,
+  CardsFilterClient,
   CardsClientFilter,
   CardsControl,
-  CardsImage,
   CardsServer,
   FooterDefault,
   FormBuilder,
@@ -58,8 +53,6 @@ export {
   PageDefault,
   PageLayout,
   PageNotFound,
-  PagePost,
-  PagePostImage,
   Popover,
   PostHeader,
   RichText,

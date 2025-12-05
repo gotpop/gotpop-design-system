@@ -9,27 +9,25 @@ import { CustomElement } from "../../ui/CustomElement"
 import { Typography } from "../Typography/Typography"
 import "./Card.css"
 
-export interface PostProps {
+export interface CardBlokProps {
   _uid: string
-  full_slug: string
-  name: string
-  published_at: string
-  meta_data_page?: MetaDataArray
   component: string
+  full_slug: string
+  meta_data_page?: MetaDataArray
 }
 
 export interface CardProps {
-  blok: PostProps
+  blok: CardBlokProps
   config?: ConfigStoryblok | null
 }
 
 export function Card({ blok, config }: CardProps) {
-  const { full_slug, meta_data_page: metaData } = blok
+  const { full_slug: fullSlug, meta_data_page: metaData } = blok
 
   const { title, date, description, tags, viewTransitionName } =
     getMeta(metaData)
 
-  const linkPath = getLinkPath(full_slug, config)
+  const linkPath = getLinkPath(fullSlug, config)
   const formattedDate = formatDate(date)
 
   const tagList = tags.map((tag) => (

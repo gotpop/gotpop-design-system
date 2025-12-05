@@ -1,10 +1,10 @@
 import "server-only"
 
 import type {
+  CardBlokProps,
   CardsClientFilterStoryblok,
   CardsServerStoryblok,
   ConfigStoryblok,
-  PostProps,
   TagDatasourceEntry,
 } from "@gotpop/system"
 import { StoryblokServerComponent } from "@storyblok/react/rsc"
@@ -17,7 +17,7 @@ interface WithCardsDataProps<
 > {
   blok: T
   blocks: ReactNode
-  posts?: PostProps[]
+  posts?: CardBlokProps[]
   availableTags: TagDatasourceEntry[]
   config: ConfigStoryblok | null
 }
@@ -59,16 +59,14 @@ export function withCardsData<
     const postsDataRaw = postsStoriesResult.data?.stories
 
     const posts = Array.isArray(postsDataRaw)
-      ? postsDataRaw.map(({ uuid, content, full_slug, name, published_at }) => {
+      ? postsDataRaw.map(({ uuid, content, full_slug }) => {
           const metaData = content?.meta_data_page || []
 
           return {
             _uid: uuid,
             component: componentSelect,
-            meta_data_page: metaData,
             full_slug,
-            name: name || "",
-            published_at: published_at || "",
+            meta_data_page: metaData,
           }
         })
       : []

@@ -4,12 +4,11 @@ import { Suspense, startTransition } from "react"
 import type {
   CardsClientFilterStoryblok,
   ConfigStoryblok,
-  PostProps,
   TagDatasourceEntry,
 } from "../../../types"
 import { CardsControl } from "../../ui/CardsControl/CardsControl"
 import { CustomElement } from "../../ui/CustomElement"
-import { Card } from "../Card/Card"
+import { Card, type CardBlokProps } from "../Card/Card"
 import { CardImage } from "../CardImage"
 import { useCardsFilter } from "./use-cards-filter"
 import "./CardsClientFilter.css"
@@ -25,7 +24,7 @@ interface CardsProps {
   blok: CardsClientFilterStoryblok
   availableTags: TagDatasourceEntry[]
   config?: ConfigStoryblok | null
-  posts: PostProps[]
+  posts: CardBlokProps[]
 }
 
 export function CardsClientFilter({

@@ -1,32 +1,32 @@
 import type { ConfigStoryblok } from "../../../types/storyblok-components"
-import { getLinkPath, getMeta } from "../../../utils/card-utils"
+import {
+  getLinkPath,
+  getMeta,
+  type MetaDataArray,
+} from "../../../utils/card-utils"
 import { formatDate } from "../../../utils/date-formatter"
 import { CustomElement } from "../../ui/CustomElement"
-import type { PostProps } from "../Card"
 import { Typography } from "../Typography/Typography"
 import "./CardImage.css"
-// import Image from "next/image"
 
-// export interface PostImageProps {
-//   uuid: string
-//   full_slug: string
-//   name: string
-//   published_at: string
-//   content: PagePostStoryblok
-// }
+export interface CardImageBlokProps {
+  _uid: string
+  component: string
+  full_slug: string
+  meta_data_page?: MetaDataArray
+}
 
 export interface CardImageProps {
-  blok: PostProps
+  blok: CardImageBlokProps
   config?: ConfigStoryblok | null
 }
 
 export function CardImage({ blok, config }: CardImageProps) {
-  const { full_slug, meta_data_page: metaData } = blok
-
+  const { full_slug: fullSlug, meta_data_page: metaData } = blok
   const { title, date, description, tags, viewTransitionName } =
     getMeta(metaData)
 
-  const linkPath = getLinkPath(full_slug, config)
+  const linkPath = getLinkPath(fullSlug, config)
   const formattedDate = formatDate(date)
 
   const tagList = tags.map((tag) => (

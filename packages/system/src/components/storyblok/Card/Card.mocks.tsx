@@ -1,4 +1,4 @@
-import type { PostProps } from "./Card"
+import type { CardBlokProps } from "./Card"
 
 export const mockConfig = {
   component: "Config" as const,
@@ -8,11 +8,9 @@ export const mockConfig = {
   _uid: "config-123",
 }
 
-export const baseMockPost: PostProps = {
+export const baseMockPost: CardBlokProps = {
   _uid: "12345-67890",
   full_slug: "blog/example-post",
-  name: "Example Blog Post",
-  published_at: "2024-01-15T10:30:00.000Z",
   component: "card",
   meta_data_page: [
     {

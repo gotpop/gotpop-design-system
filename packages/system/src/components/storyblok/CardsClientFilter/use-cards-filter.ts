@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react"
 import { getMeta } from "../../../utils/card-utils"
-import type { PostProps } from "../../storyblok/Card/Card"
+import type { CardBlokProps } from "../../storyblok/Card/Card"
 
-export function useCardsFilter(posts: PostProps[]) {
+export function useCardsFilter(posts: CardBlokProps[]) {
   const [currentTag, setCurrentTag] = useState("all")
   const [currentSort, setCurrentSort] = useState("published_desc")
 
@@ -25,21 +25,23 @@ export function useCardsFilter(posts: PostProps[]) {
         case "published_desc": {
           const { date: dateA } = getMeta(a.meta_data_page)
           const { date: dateB } = getMeta(b.meta_data_page)
-          const finalDateA = dateA || a.published_at
-          const finalDateB = dateB || b.published_at
-          return new Date(finalDateB).getTime() - new Date(finalDateA).getTime()
+          return new Date(dateB).getTime() - new Date(dateA).getTime()
         }
         case "published_asc": {
           const { date: dateA } = getMeta(a.meta_data_page)
           const { date: dateB } = getMeta(b.meta_data_page)
-          const finalDateA = dateA || a.published_at
-          const finalDateB = dateB || b.published_at
-          return new Date(finalDateA).getTime() - new Date(finalDateB).getTime()
+          return new Date(dateA).getTime() - new Date(dateB).getTime()
         }
-        case "name_asc":
-          return a.name.localeCompare(b.name)
-        case "name_desc":
-          return b.name.localeCompare(a.name)
+        case "name_asc": {
+          const { title: titleA } = getMeta(a.meta_data_page)
+          const { title: titleB } = getMeta(b.meta_data_page)
+          return titleA.localeCompare(titleB)
+        }
+        case "name_desc": {
+          const { title: titleA } = getMeta(a.meta_data_page)
+          const { title: titleB } = getMeta(b.meta_data_page)
+          return titleB.localeCompare(titleA)
+        }
         default:
           return 0
       }

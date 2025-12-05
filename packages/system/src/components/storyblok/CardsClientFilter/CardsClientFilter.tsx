@@ -24,12 +24,12 @@ interface CardsProps {
   blok: CardsClientFilterStoryblok
   availableTags: TagDatasourceEntry[]
   config?: ConfigStoryblok | null
-  posts: CardBlokProps[]
+  posts?: CardBlokProps[]
 }
 
 export function CardsClientFilter({
   availableTags,
-  posts,
+  posts = [],
   config,
 }: CardsProps) {
   const {

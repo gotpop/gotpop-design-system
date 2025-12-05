@@ -18,27 +18,28 @@ export const baseMockPost: PostProps = {
     {
       component: "meta_title",
       _uid: "title-123",
-      payload: "Building Modern Web Applications"
+      payload: "Building Modern Web Applications",
     },
     {
-      component: "meta_description", 
+      component: "meta_description",
       _uid: "desc-123",
-      payload: "Learn how to create fast, accessible, and maintainable web applications using modern tools and best practices."
+      payload:
+        "Learn how to create fast, accessible, and maintainable web applications using modern tools and best practices.",
     },
     {
       component: "meta_date_published",
-      _uid: "date-123", 
-      payload: "2024-01-15T10:30:00.000Z"
+      _uid: "date-123",
+      payload: "2024-01-15T10:30:00.000Z",
     },
     {
       component: "meta_tags",
       _uid: "tags-123",
-      payload: ["development", "web", "javascript", "react"]
+      payload: ["development", "web", "javascript", "react"],
     },
     {
       component: "meta_view_transition",
       _uid: "transition-123",
-      payload: "post-12345"
-    }
+      payload: "post-12345",
+    },
   ],
 }

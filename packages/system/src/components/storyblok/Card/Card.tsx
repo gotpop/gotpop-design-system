@@ -10,6 +10,7 @@ import { Typography } from "../Typography/Typography"
 import "./Card.css"
 
 export interface PostProps {
+  _uid: string
   full_slug: string
   name: string
   published_at: string

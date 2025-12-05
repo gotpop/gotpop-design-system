@@ -6,4 +6,4 @@
  */
 
 export type { CardProps, PostProps } from "../components/storyblok/Card/Card"
-export type { TagDatasourceEntry } from "../components/ui/CardsFilter/CardsFilterClient"
+export type { TagDatasourceEntry } from "./storyblok"

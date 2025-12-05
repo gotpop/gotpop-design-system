@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { getMeta } from "../../../utils/card-utils"
-import type { PostProps } from "../Card/Card"
+import type { PostProps } from "../../storyblok/Card/Card"
 
 export function useCardsFilter(posts: PostProps[]) {
   const [currentTag, setCurrentTag] = useState("all")

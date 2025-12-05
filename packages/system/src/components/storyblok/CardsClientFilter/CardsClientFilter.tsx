@@ -5,7 +5,7 @@ import type {
   PostProps,
   TagDatasourceEntry,
 } from "../../../types"
-import { CardsFilterClient } from "../CardsFilter/CardsFilterClient"
+import { CardsFilterClient } from "../../ui/CardsFilter/CardsFilterClient"
 import "./CardsClientFilter.css"
 
 interface CardsProps {

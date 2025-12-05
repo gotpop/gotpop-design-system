@@ -1,10 +1,10 @@
 "use client"
 
 import { startTransition, ViewTransition } from "react"
-import { CardImage, type ConfigStoryblok } from "../../../index"
+import { CardImage, type ConfigStoryblok } from "../../storyblok"
+import type { PostProps } from "../../storyblok/Card/Card"
+import { Card } from "../../storyblok/Card/Card"
 import { CustomElement } from "../../ui/CustomElement"
-import type { PostProps } from "../Card/Card"
-import { Card } from "../Card/Card"
 import { CardsControl } from "../CardsControl/CardsControl"
 import { useCardsFilter } from "./use-cards-filter"
 

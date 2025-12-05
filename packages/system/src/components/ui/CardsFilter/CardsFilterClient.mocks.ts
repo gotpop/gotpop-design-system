@@ -1,4 +1,4 @@
-import type { PostProps } from "../Card/Card"
+import type { PostProps } from "../../storyblok/Card/Card"
 import type { TagDatasourceEntry } from "./CardsFilterClient"
 
 export const mockPosts: PostProps[] = [

@@ -1,7 +1,9 @@
 import type {
+  AssetStoryblok,
   ConfigStoryblok,
   MetaDatePublishedStoryblok,
   MetaDescriptionStoryblok,
+  MetaImageStoryblok,
   MetaTagsStoryblok,
   MetaTitleStoryblok,
   MetaViewTransitionStoryblok,
@@ -9,6 +11,7 @@ import type {
 
 type MetaDataArray = (
   | MetaTitleStoryblok
+  | MetaImageStoryblok
   | MetaDatePublishedStoryblok
   | MetaDescriptionStoryblok
   | MetaTagsStoryblok
@@ -16,12 +19,14 @@ type MetaDataArray = (
 )[]
 
 export const getMeta = (metaData: MetaDataArray | undefined) => {
-  const getValue = <T extends string | string[]>(
+  const getValue = <T extends string | string[] | AssetStoryblok>(
     component: string
   ): T | undefined =>
     metaData?.find((item) => item.component === component)?.payload as T
 
   const title = getValue<string>("meta_title") || ""
+  const imageAsset = getValue<AssetStoryblok>("meta_image")
+  const image = imageAsset?.filename || ""
   const date = getValue<string>("meta_date_published") || ""
   const description = getValue<string>("meta_description") || ""
   const tags = getValue<string[]>("meta_tags") || []
@@ -29,6 +34,7 @@ export const getMeta = (metaData: MetaDataArray | undefined) => {
 
   return {
     title,
+    image,
     date,
     description,
     tags,

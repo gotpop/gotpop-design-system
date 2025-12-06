@@ -1,4 +1,47 @@
 @scope (.card-with-image) {
+  & {
+    --translate-x: -100%;
+    --translate-y: 0;
+
+    background-color: white;
+    display: grid;
+    grid-column: span 3;
+    grid-template-columns: [all] 1fr;
+    grid-template-rows: [all] 1fr;
+    height: 20rem;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+      --translate-x: 0;
+      --translate-y: 0;
+      --filter: grayscale(1);
+    }
+  }
+
+  .content {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    backdrop-filter: var(--filter, 0);
+    position: absolute;
+    grid-row: all;
+    grid-column: all;
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+
+    box-grid {
+      display: flex;
+      flex-direction: column;
+      padding: var(--spacing-base);
+      background-color: white;
+      width: 20rem;
+      inset: auto auto 0 0;
+      position: absolute;
+      transition: all 0.2s ease-in-out;
+      translate: var(--translate-x) 0;
+    }
+  }
+
   .meta {
     align-items: flex-start;
     display: flex;
@@ -12,7 +55,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-base);
-    background-color: aqua;
   }
 
   .tag {
@@ -32,15 +74,20 @@
     text-decoration: none;
   }
 
-  .card-image-hero {
+  .image-container {
+    overflow: hidden;
     width: 100%;
+    height: 100%;
     display: flex;
+    grid-area: all;
+    position: relative;
+  }
 
-    img {
-      aspect-ratio: 160 / 79;
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    display: block;
   }
 }

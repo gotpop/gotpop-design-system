@@ -1,3 +1,4 @@
+import Image from "next/image"
 import type { ConfigStoryblok } from "../../../types/storyblok-components"
 import {
   getLinkPath,
@@ -23,11 +24,10 @@ export interface CardImageProps {
 
 export function CardImage({ blok, config }: CardImageProps) {
   const { full_slug: fullSlug, meta_data_page: metaData } = blok
-  const { title, date, description, tags, viewTransitionName } =
-    getMeta(metaData)
+  const { title, image, tags, viewTransitionName } = getMeta(metaData)
 
   const linkPath = getLinkPath(fullSlug, config)
-  const formattedDate = formatDate(date)
+  // const formattedDate = formatDate(date)
 
   const tagList = tags.map((tag) => (
     <span key={tag} className="tag">
@@ -36,36 +36,50 @@ export function CardImage({ blok, config }: CardImageProps) {
   ))
 
   return (
-    <CustomElement
-      tag="box-grid"
+    <article
       className="card-with-image"
       style={{
         viewTransitionName: viewTransitionName,
       }}
     >
-      <div className="meta">
-        <Typography
-          tag="time"
-          variant="text-sm"
-          shade="charcoal"
-          dateTime={formattedDate}
-          className="margin-none"
-        >
-          {formattedDate}
-        </Typography>
-        <div className="tags">{tagList}</div>
+      {image && (
+        <div className="image-container">
+          <Image
+            src={image}
+            alt={title || "Card image"}
+            width={640}
+            height={364}
+            className="card-image"
+          />
+        </div>
+      )}
+      <div className="content">
+        <CustomElement tag="box-grid">
+          <div className="meta">
+            {/* <Typography
+            tag="time"
+            variant="text-sm"
+            shade="charcoal"
+            dateTime={formattedDate}
+            className="margin-none"
+          >
+            {formattedDate}
+          </Typography> */}
+            <div className="tags">{tagList}</div>
+          </div>
+          <Typography tag="h3" variant="text-xl" shade="dark">
+            <a href={linkPath} className="title-link">
+              {title}
+            </a>
+          </Typography>
+          {/* <Typography tag="p" variant="text-base" shade="charcoal">
+          {description}
+        </Typography> */}
+          <a href={linkPath} className="link-simple">
+            Read more
+          </a>
+        </CustomElement>
       </div>
-      <Typography tag="h3" variant="text-xl" shade="dark">
-        <a href={linkPath} className="title-link">
-          {title}
-        </a>
-      </Typography>
-      <Typography tag="p" variant="text-base" shade="charcoal">
-        {description}
-      </Typography>
-      <a href={linkPath} className="link-simple">
-        Read more
-      </a>
-    </CustomElement>
+    </article>
   )
 }
